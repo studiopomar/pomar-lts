@@ -1,0 +1,1472 @@
+export type Language = 'pt' | 'en' | 'ar' | 'ru' | 'ja';
+
+export interface VoiceItem {
+  id: string;
+  name: string;
+  image: string;
+  accent: string;
+  meta: string;
+  detail: string;
+  tags: string[];
+  profile: string;
+  owner: string;
+  ownerName: string;
+  audioSample?: string;
+  specs: {
+    species: string;
+    engines: string;
+    languages: string;
+    range: string;
+    description: string;
+    downloadUrl: string;
+  };
+}
+
+export interface ProjectItem {
+  index: string;
+  name: string;
+  type: string;
+  text: string;
+  image: string;
+  href: string;
+  tags: string[];
+}
+
+export interface TranslationSchema {
+  nav: {
+    home: string;
+    voices: string;
+    tools: string;
+    quickstart: string;
+    manifesto: string;
+    github: string;
+  };
+  hero: {
+    spotlightBadge: string;
+    spotlightVersion: string;
+    spotlightOpen: string;
+    spotlightTitle: string;
+    spotlightCategory: string;
+    spotlightDesc: string;
+    spotlightSource: string;
+    spotlightTools: string;
+    eyebrow: string;
+    titleMain: string;
+    titleEm: string;
+    intro: string;
+    ctaVoices: string;
+    ctaProjects: string;
+  };
+  ticker: string;
+  voicesSection: {
+    eyebrow: string;
+    titleMain: string;
+    titleEm: string;
+    desc: string;
+    listenSample: string;
+    playing: string;
+    stopAudio: string;
+    viewDetails: string;
+    modal: {
+      species: string;
+      engines: string;
+      languages: string;
+      range: string;
+      bio: string;
+      officialWiki: string;
+      creatorChannel: string;
+      downloadBank: string;
+      close: string;
+    };
+  };
+  toolsSection: {
+    eyebrow: string;
+    titleMain: string;
+    titleEm: string;
+    desc: string;
+  };
+  manifestoSection: {
+    eyebrow: string;
+    copyMain: string;
+    copyEm1: string;
+    copyMid: string;
+    copyEm2: string;
+    v1Title: string;
+    v1Text: string;
+    v2Title: string;
+    v2Text: string;
+    v3Title: string;
+    v3Text: string;
+    readManifesto: string;
+  };
+  quickstartSection: {
+    eyebrow: string;
+    titleMain: string;
+    titleEm: string;
+    desc: string;
+    step1Title: string;
+    step1Text: string;
+    step2Title: string;
+    step2Text: string;
+    step3Title: string;
+    step3Text: string;
+  };
+  footer: {
+    titleMain: string;
+    titleEm: string;
+    community: string;
+    content: string;
+    backToTop: string;
+    rights: string;
+    subtitle: string;
+  };
+  manifestoPage: {
+    back: string;
+    eyebrow: string;
+    title1: string;
+    titleEm1: string;
+    title2: string;
+    titleEm2: string;
+    p1: string;
+    p2: string;
+    p3: string;
+    pillarsEyebrow: string;
+    pillars: Array<{
+      num: string;
+      title: string;
+      desc: string;
+    }>;
+    footerTitle: string;
+    footerDesc: string;
+    homeBtn: string;
+  };
+  voices: VoiceItem[];
+  projects: ProjectItem[];
+}
+
+export const translations: Record<Language, TranslationSchema> = {
+  pt: {
+    nav: {
+      home: 'Início',
+      voices: 'Vozes',
+      tools: 'Ferramentas',
+      quickstart: 'Como Começar',
+      manifesto: 'O Ritmo da Terra',
+      github: 'GitHub ↗',
+    },
+    hero: {
+      spotlightBadge: 'NOVO FRUTO NO POMAR',
+      spotlightVersion: 'v0.2.0 · Rust',
+      spotlightOpen: 'Abrir ↗',
+      spotlightTitle: 'KAMAFEU',
+      spotlightCategory: 'DSP Nativo · Multifaixa',
+      spotlightDesc: 'O novo sintetizador concatenativo e piano roll para UTAU e OpenUTAU, com afinação manual artesanal e renderização em Rust.',
+      spotlightSource: 'Código-fonte ↗',
+      spotlightTools: 'Ver nas ferramentas ↓',
+      eyebrow: 'SÍNTESE VOCAL · BRASIL',
+      titleMain: 'Vozes que',
+      titleEm: 'criam raízes.',
+      intro: 'Um coletivo de voicebanks e ferramentas livres para UTAU e OpenUTAU. Feito pela comunidade, para a comunidade.',
+      ctaVoices: 'Conheça as vozes',
+      ctaProjects: 'Explorar projetos →',
+    },
+    ticker: 'UTAU ✶ OPENUTAU ✶ SOFTWARE LIVRE ✶ VOZES BRASILEIRAS ✶ LONG-TERM SUPPORT ✶ UTAU ✶ OPENUTAU ✶ SOFTWARE LIVRE ✶',
+    voicesSection: {
+      eyebrow: '01 · AS VOZES',
+      titleMain: 'Cinco identidades.',
+      titleEm: 'Um mesmo pomar.',
+      desc: 'Cada voz carrega uma história, uma estética e novas possibilidades para produtores de música e artistas vocais.',
+      listenSample: 'Ouvir amostra',
+      playing: 'Tocando...',
+      stopAudio: 'Parar áudio',
+      viewDetails: 'Ver detalhes e downloads →',
+      modal: {
+        species: 'Espécie / Identidade',
+        engines: 'Motores Suportados',
+        languages: 'Idiomas Suportados',
+        range: 'Alcance Vocal Recomendado',
+        bio: 'Biografia & Detalhes',
+        officialWiki: 'Wiki Oficial ↗',
+        creatorChannel: 'Canal do Criador ↗',
+        downloadBank: 'Baixar Voicebank Oficial ↗',
+        close: 'Fechar',
+      },
+    },
+    toolsSection: {
+      eyebrow: '02 · FERRAMENTAS',
+      titleMain: 'Código que faz',
+      titleEm: 'a voz florescer.',
+      desc: 'Software livre brasileiro para criar, editar e cuidar de voicebanks com autonomia.',
+    },
+    manifestoSection: {
+      eyebrow: '03 · NOSSO JEITO',
+      copyMain: 'Tecnologia local com ',
+      copyEm1: 'estabilidade',
+      copyMid: ', liberdade para experimentar e respeito por quem transforma amostras em ',
+      copyEm2: 'música.',
+      v1Title: 'Aberto',
+      v1Text: 'Projetos públicos, documentados e prontos para receber contribuições.',
+      v2Title: 'Estável',
+      v2Text: 'A linha LTS privilegia confiabilidade, revisão cuidadosa e uso contínuo.',
+      v3Title: 'Brasileiro',
+      v3Text: 'Ferramentas e vozes nascidas daqui, conectadas a uma comunidade global.',
+      readManifesto: 'Ler o manifesto: O Ritmo da Terra',
+    },
+    quickstartSection: {
+      eyebrow: '04 · GUIA RÁPIDO',
+      titleMain: 'Como começar a',
+      titleEm: 'produzir suas músicas.',
+      desc: 'Passo a passo simples para instalar os bancos de voz do Pomar e criar com autonomia.',
+      step1Title: 'Baixe o Voicebank',
+      step1Text: 'Escolha uma das vozes brasileiras ou internacionais do coletivo e faça o download do arquivo .zip oficial.',
+      step2Title: 'Instale no seu Software',
+      step2Text: 'No OpenUTAU, basta arrastar o .zip para a tela. No UTAU clássico, extraia a pasta descompactada em voice/.',
+      step3Title: 'Cultive suas Canções',
+      step3Text: 'Abra sua música (.ust ou .ustx), selecione a voz e componha com suporte a fonemas e afinação artesanal!',
+    },
+    footer: {
+      titleMain: 'Vamos cultivar',
+      titleEm: 'novas vozes?',
+      community: 'COMUNIDADE',
+      content: 'CONTEÚDO',
+      backToTop: 'Voltar ao topo ↑',
+      rights: 'Studio Pomar · Animação ambiente "Brisa do Pomar" em código livre',
+      subtitle: 'UTAU · OpenUTAU · software livre',
+    },
+    manifestoPage: {
+      back: '← Voltar para a página inicial',
+      eyebrow: 'MANIFESTO · O RITMO DA TERRA',
+      title1: 'Tecnologia local com ',
+      titleEm1: 'estabilidade',
+      title2: ', raízes profundas e respeito por quem transforma amostras em ',
+      titleEm2: 'música.',
+      p1: 'O Studio POMAR nasceu da convicção de que a tecnologia de voz não deve ser um recurso distante, fechado ou descartável. Cultivamos ferramentas abertas, voicebanks duradouros e documentação clara para que artistas e desenvolvedores possam semear suas próprias canções com total autonomia.',
+      p2: 'Num cenário de atualizações voláteis e dependências de nuvem efêmeras, nós defendemos o suporte de longo prazo (LTS), a preservação do conhecimento artesanal de afinação e a valorização das vozes brasileiras e lusófonas.',
+      p3: 'Nossos softwares e bancos são frutos de um solo fértil de colaboração comunitária. Da calibração de um oto.ini à engenharia de DSP em Rust, cada linha de código carrega o compromisso de florescer a criatividade musical.',
+      pillarsEyebrow: 'OS 5 PILARES DO STUDIO POMAR',
+      pillars: [
+        {
+          num: '01',
+          title: 'Raízes & Brasilidade',
+          desc: 'Ferramentas, dicionários fonéticos e bancos de voz desenhados para as nuances da língua portuguesa e cultura brasileira, dialogando de forma aberta com a cena internacional.',
+        },
+        {
+          num: '02',
+          title: 'Código Livre & Autonomia',
+          desc: 'Editores, scripts e modelos públicos, transparentes e prontos para receber contribuições. Acreditamos que a tecnologia deve pertencer à comunidade que a utiliza.',
+        },
+        {
+          num: '03',
+          title: 'Estabilidade de Longo Prazo (LTS)',
+          desc: 'Ferramentas feitas para durar. Priorizamos confiabilidade e compatibilidade retroativa para que seu trabalho de produção não quebre na próxima atualização de sistema.',
+        },
+        {
+          num: '04',
+          title: 'Artesanato Vocal',
+          desc: 'Defendemos o toque humano na edição, no oto.ini minucioso e na parametrização detalhada. O algoritmo é um meio de expressão artística, nunca um substituto.',
+        },
+        {
+          num: '05',
+          title: 'Cultivo Comunitário',
+          desc: 'Compartilhar conhecimento, acolher novos criadores e incentivar produções independentes. Nosso pomar só dá frutos quando cultivado coletivamente.',
+        },
+      ],
+      footerTitle: 'Faça parte deste movimento',
+      footerDesc: 'Conecte-se com outros músicos e desenvolvedores, compartilhe suas criações ou contribua com código e documentação.',
+      homeBtn: 'Explorar vozes e ferramentas no início →',
+    },
+    voices: [
+      {
+        id: 'viictor',
+        name: 'VIICTOR',
+        image: '/viictor.webp',
+        accent: '#d7ff3f',
+        meta: '4ª Geração · desde 2013',
+        detail: 'Voz brasileira versátil de 4ª geração com bancos em mais de 30 idiomas, incluindo Islandês, Hindi e Árabe. Conhecido como FIIKTUR nos Emirados Árabes e LiNG_WEi na China.',
+        tags: ['UTAU', 'OpenUTAU', 'Multilíngue'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR',
+        owner: 'https://www.youtube.com/@xiaopng',
+        ownerName: 'xiaop',
+        audioSample: '/viictor_sample.mp3',
+        specs: {
+          species: 'Humano',
+          engines: 'UTAU · OpenUTAU · DiffSinger · NiaoNiao · DeepVocal · NNSVS · Kamafeu · Cadencii',
+          languages: 'Português · Japonês · Inglês · +30 idiomas (incluindo Islandês, Hindi, Árabe)',
+          range: 'A2 ~ G4',
+          description: 'Faz parte da 4ª geração de bancos de voz de UTAU do Brasil. Possui bancos em mais de 30 idiomas, incluindo Islandês, Hindi e Árabe. Internacionalmente, é conhecido nos Emirados Árabes Unidos como FIIKTUR e na China Continental como LiNG_WEi.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR#Downloads',
+        },
+      },
+      {
+        id: 'yohji',
+        name: 'YOHJI',
+        image: '/yohji.webp',
+        accent: '#ff8a5c',
+        meta: '2ª Geração · desde 2010',
+        detail: 'Voz brasileira de 2ª geração, pioneiro na América Latina na disponibilização de dados para bancos de voz em espanhol no DiffSinger.',
+        tags: ['UTAU', 'OpenUTAU', 'Pioneiro BR'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji',
+        owner: 'https://www.youtube.com/@oneno_ren',
+        ownerName: 'Oneno',
+        specs: {
+          species: 'Humano',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'Português · Japonês · Espanhol',
+          range: 'G2 ~ E4',
+          description: 'Voz brasileira integrante da 2ª geração. É reconhecido como pioneiro na América Latina na disponibilização de dados (data) de DiffSinger para a confecção de bancos de voz em espanhol.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji#Downloads',
+        },
+      },
+      {
+        id: 'eddie',
+        name: 'EDDIE',
+        image: '/eddie.webp',
+        accent: '#00f2ff',
+        meta: '4ª Geração · desde 2012',
+        detail: 'Voz brasileira pioneira de 4ª geração e o primeiro banco de voz configurado especificamente para o português brasileiro, lançado em 2012.',
+        tags: ['UTAU', 'OpenUTAU', 'Pioneiro BR'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE',
+        owner: 'https://www.youtube.com/channel/UC3i4aYpZHhxEWGk8VuBBXgw',
+        ownerName: 'Qkir0n',
+        specs: {
+          species: 'Humano / Android',
+          engines: 'UTAU · OpenUTAU · SVV',
+          languages: 'Português · Japonês',
+          range: 'D#2 ~ E5',
+          description: 'O primeiro banco de voz configurado especificamente para o português brasileiro. Possui cabelos castanho-escuros, olhos de mel e pele morena com traços inspirados na etnia cabocla/tupinambá, além de tatuagens bioluminescentes azuis em formato de chave e jaqueta transparente em degradê roxo e azul.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE#Downloads',
+        },
+      },
+      {
+        id: 'mizuki',
+        name: 'MIZUKI',
+        image: '/mizuki.png',
+        accent: '#504e67',
+        meta: '7ª Geração · desde 2015',
+        detail: 'Voz brasileira de 7ª geração com temática inspirada em café, criado por Makki. Apresenta visual felino expressivo e canto versátil.',
+        tags: ['UTAU', 'DiffSinger', 'Multilíngue'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki',
+        owner: 'https://www.youtube.com/@makkidot',
+        ownerName: 'Makki',
+        specs: {
+          species: 'Gato antropomorfo',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'Japonês · Português · Inglês',
+          range: 'F2 ~ C4',
+          description: 'Voz brasileira integrante da 7ª geração de bancos de voz. Mizuki apresenta uma forte temática baseada em café. Seu design traz pelagem cinza-escura, cabelo preto e olhos vermelhos.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki#Downloads',
+        },
+      },
+      {
+        id: 'llane-crow',
+        name: 'LLANE CROW',
+        image: '/llane-crow.png',
+        accent: '#b7a6ff',
+        meta: 'Rússia · Projetos Globais',
+        detail: 'Voz internacional originária da Rússia e celebrada mundialmente em projetos globais, com atuação pioneira no fornecimento de dados para bancos de voz neurais.',
+        tags: ['UTAU', 'DiffSinger', 'Multilíngue'],
+        profile: 'https://vocadb.net/Ar/86115',
+        owner: 'https://www.youtube.com/channel/UC7k8UHsIwrAfz0hZcQmQvXA',
+        ownerName: 'LOP-P',
+        audioSample: '/llane_standard.mp3',
+        specs: {
+          species: 'Humano / Cyborg',
+          engines: 'UTAU · OpenUTAU · DiffSinger · Neural Synth',
+          languages: 'Russo · Inglês · Japonês',
+          range: 'C2 ~ A#4',
+          description: 'Voz internacional originária da Rússia e altamente celebrada em projetos globais. É pioneira na disponibilização de dados (data) russos para o desenvolvimento e confecção de bancos de voz neurais.',
+          downloadUrl: 'https://vocadb.net/Ar/86115',
+        },
+      },
+    ],
+    projects: [
+      {
+        index: '01',
+        name: 'KAMAFEU',
+        type: 'Sintetizador & Editor multifaixa · Rust',
+        text: 'Sintetizador concatenativo multifaixa e editor de voz UTAU/OpenUTAU em Rust. Processamento DSP nativo de alta fidelidade e controle artesanal de afinação.',
+        image: '/kamafeu.png',
+        href: 'https://github.com/studiopomar/kamafeu',
+        tags: ['Rust', 'DSP Nativo', 'Multifaixa', 'Open Source'],
+      },
+      {
+        index: '02',
+        name: 'COPAÍBA NEO',
+        type: 'Editor de oto.ini multiplataforma · Rust',
+        text: 'A nova geração de editores de voicebank: interface moderna, gravação de áudio embutida, seleção múltipla e plugins inteligentes de consistência.',
+        image: '/copaiba-neo.png',
+        href: 'https://github.com/studiopomar/Copaiba-NEO',
+        tags: ['Rust', 'Multiplataforma', 'Gravador', 'Plugins'],
+      },
+      {
+        index: '03',
+        name: 'COPAIBA LEXIKON LTS',
+        type: 'Editor de oto.ini estável · Python',
+        text: 'Edição avançada e confiável com forma de onda detalhada, mini-mapa, presets personalizáveis, trabalho em lote e suporte contínuo de longo prazo.',
+        image: '/copaiba-lexicon.png',
+        href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        tags: ['Python', 'LTS', 'Edição em Lote', 'Estável'],
+      },
+    ],
+  },
+
+  en: {
+    nav: {
+      home: 'Home',
+      voices: 'Voices',
+      tools: 'Tools',
+      quickstart: 'Getting Started',
+      manifesto: 'The Rhythm of the Earth',
+      github: 'GitHub ↗',
+    },
+    hero: {
+      spotlightBadge: 'NEW FRUIT IN THE ORCHARD',
+      spotlightVersion: 'v0.2.0 · Rust',
+      spotlightOpen: 'Open ↗',
+      spotlightTitle: 'KAMAFEU',
+      spotlightCategory: 'Native DSP · Multitrack',
+      spotlightDesc: 'The new multitrack concatenative synthesizer and piano roll for UTAU and OpenUTAU, featuring artisanal manual pitch tuning and Rust rendering.',
+      spotlightSource: 'Source Code ↗',
+      spotlightTools: 'View in tools ↓',
+      eyebrow: 'VOCAL SYNTHESIS · BRAZIL',
+      titleMain: 'Voices taking',
+      titleEm: 'deep root.',
+      intro: 'A collective of open-source voicebanks and tools for UTAU and OpenUTAU. Made by the community, for the community.',
+      ctaVoices: 'Meet the voices',
+      ctaProjects: 'Explore projects →',
+    },
+    ticker: 'UTAU ✶ OPENUTAU ✶ OPEN SOURCE ✶ BRAZILIAN VOICES ✶ LONG-TERM SUPPORT ✶ UTAU ✶ OPENUTAU ✶ OPEN SOURCE ✶',
+    voicesSection: {
+      eyebrow: '01 · THE VOICES',
+      titleMain: 'Five identities.',
+      titleEm: 'One single orchard.',
+      desc: 'Each voice brings a unique story, aesthetic, and new sonic possibilities for music producers and vocal artists worldwide.',
+      listenSample: 'Play sample',
+      playing: 'Playing...',
+      stopAudio: 'Stop audio',
+      viewDetails: 'View details & downloads →',
+      modal: {
+        species: 'Species / Identity',
+        engines: 'Supported Engines',
+        languages: 'Supported Languages',
+        range: 'Recommended Vocal Range',
+        bio: 'Biography & Specs',
+        officialWiki: 'Official Wiki ↗',
+        creatorChannel: "Creator's Channel ↗",
+        downloadBank: 'Download Official Voicebank ↗',
+        close: 'Close',
+      },
+    },
+    toolsSection: {
+      eyebrow: '02 · TOOLS',
+      titleMain: 'Code that makes',
+      titleEm: 'the voice blossom.',
+      desc: 'Free and open-source software to create, edit, and maintain voicebanks with complete creative autonomy.',
+    },
+    manifestoSection: {
+      eyebrow: '03 · OUR PHILOSOPHY',
+      copyMain: 'Local technology with ',
+      copyEm1: 'stability',
+      copyMid: ', freedom to experiment, and deep respect for those who turn samples into ',
+      copyEm2: 'music.',
+      v1Title: 'Open',
+      v1Text: 'Public repositories, transparent documentation, and ready to welcome contributions.',
+      v2Title: 'Stable',
+      v2Text: 'The LTS philosophy prioritizes reliability, careful review, and enduring workflows.',
+      v3Title: 'Brazilian & Global',
+      v3Text: 'Tools and voices crafted locally, connected to an active global creator ecosystem.',
+      readManifesto: 'Read the manifesto: The Rhythm of the Earth',
+    },
+    quickstartSection: {
+      eyebrow: '04 · QUICKSTART',
+      titleMain: 'How to start',
+      titleEm: 'producing your songs.',
+      desc: 'Simple step-by-step guide to installing Pomar voicebanks and composing freely.',
+      step1Title: 'Download Voicebank',
+      step1Text: 'Choose one of our collective’s Brazilian or international voicebanks and download the official .zip file.',
+      step2Title: 'Install in your Software',
+      step2Text: 'In OpenUTAU, simply drag and drop the .zip onto the window. In classic UTAU, extract into your voice/ folder.',
+      step3Title: 'Cultivate your Music',
+      step3Text: 'Open your track (.ust or .ustx), choose your singer, and craft your song with expressive phonemes and tuning!',
+    },
+    footer: {
+      titleMain: "Let's cultivate",
+      titleEm: 'new voices?',
+      community: 'COMMUNITY',
+      content: 'CONTENT',
+      backToTop: 'Back to top ↑',
+      rights: 'Studio Pomar · Ambient animation "Orchard Breeze" in open-source code',
+      subtitle: 'UTAU · OpenUTAU · open source',
+    },
+    manifestoPage: {
+      back: '← Back to home',
+      eyebrow: 'MANIFESTO · THE RHYTHM OF THE EARTH',
+      title1: 'Local technology with ',
+      titleEm1: 'stability',
+      title2: ', deep roots, and respect for those who transform raw audio into ',
+      titleEm2: 'music.',
+      p1: 'Studio POMAR was born from the belief that vocal synthesis technology should not be an inaccessible, closed, or disposable commodity. We cultivate open tools, resilient voicebanks, and clear documentation so artists and engineers can plant their musical ideas with total autonomy.',
+      p2: 'In an era of volatile subscription updates and ephemeral cloud dependencies, we champion Long-Term Support (LTS), the preservation of handcrafted pitch tuning knowledge, and the flourishing of Brazilian and international vocal synthesis.',
+      p3: 'Our software and voicebanks are the yield of fertile community collaboration. From fine-tuning an oto.ini configuration to low-level Rust DSP engineering, every line of code is dedicated to nurturing musical creativity.',
+      pillarsEyebrow: 'THE 5 PILLARS OF STUDIO POMAR',
+      pillars: [
+        {
+          num: '01',
+          title: 'Roots & Identity',
+          desc: 'Tools, phonetic dictionaries, and voicebanks tailored to Portuguese and Latin nuances while interacting openly with the international community.',
+        },
+        {
+          num: '02',
+          title: 'Open Source & Autonomy',
+          desc: 'Public editors, scripts, and models that are open to contributions. We believe technology should belong to the community that uses it.',
+        },
+        {
+          num: '03',
+          title: 'Long-Term Support (LTS)',
+          desc: 'Tools built to endure. We prioritize backwards compatibility and stability so your creative workflow never breaks unexpectedly.',
+        },
+        {
+          num: '04',
+          title: 'Vocal Craftsmanship',
+          desc: 'We value the human touch in sample configuration, precise oto.ini timing, and manual pitch editing. Algorithms are tools for artistic expression.',
+        },
+        {
+          num: '05',
+          title: 'Community Cultivation',
+          desc: 'Sharing knowledge, welcoming newcomers, and empowering independent artists. Our orchard thrives when cultivated together.',
+        },
+      ],
+      footerTitle: 'Join the Movement',
+      footerDesc: 'Connect with fellow musicians and developers, share your songs, or contribute code and documentation.',
+      homeBtn: 'Explore voices and tools on the homepage →',
+    },
+    voices: [
+      {
+        id: 'viictor',
+        name: 'VIICTOR',
+        image: '/viictor.webp',
+        accent: '#d7ff3f',
+        meta: '4th Generation · since 2013',
+        detail: 'Versatile 4th generation Brazilian voice with banks across 30+ languages, including Icelandic, Hindi, and Arabic. Known internationally as FIIKTUR in the UAE and LiNG_WEi in China.',
+        tags: ['UTAU', 'OpenUTAU', 'Multilingual'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR',
+        owner: 'https://www.youtube.com/@xiaopng',
+        ownerName: 'xiaop',
+        audioSample: '/viictor_sample.mp3',
+        specs: {
+          species: 'Human',
+          engines: 'UTAU · OpenUTAU · DiffSinger · NiaoNiao · DeepVocal · NNSVS · Kamafeu · Cadencii',
+          languages: 'Portuguese · Japanese · English · 30+ Languages (incl. Icelandic, Hindi, Arabic)',
+          range: 'A2 ~ G4',
+          description: 'Part of the 4th generation of Brazilian UTAU voicebanks. Features voicebanks in over 30 languages, including Icelandic, Hindi, and Arabic. Internationally known as FIIKTUR in the UAE and LiNG_WEi in China.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR#Downloads',
+        },
+      },
+      {
+        id: 'yohji',
+        name: 'YOHJI',
+        image: '/yohji.webp',
+        accent: '#ff8a5c',
+        meta: '2nd Generation · since 2010',
+        detail: '2nd generation Brazilian voice and Latin American pioneer in releasing DiffSinger training data for Spanish vocal banks.',
+        tags: ['UTAU', 'OpenUTAU', 'BR Pioneer'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji',
+        owner: 'https://www.youtube.com/@oneno_ren',
+        ownerName: 'Oneno',
+        specs: {
+          species: 'Human',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'Portuguese · Japanese · Spanish',
+          range: 'G2 ~ E4',
+          description: 'Key 2nd-generation Brazilian singer and Latin American pioneer in releasing open DiffSinger dataset for crafting Spanish voicebanks.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji#Downloads',
+        },
+      },
+      {
+        id: 'eddie',
+        name: 'EDDIE',
+        image: '/eddie.webp',
+        accent: '#00f2ff',
+        meta: '4th Generation · since 2012',
+        detail: 'Pioneering 4th generation Brazilian voice and the very first voicebank configured specifically for Brazilian Portuguese, launched in 2012.',
+        tags: ['UTAU', 'OpenUTAU', 'BR Pioneer'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE',
+        owner: 'https://www.youtube.com/channel/UC3i4aYpZHhxEWGk8VuBBXgw',
+        ownerName: 'Qkir0n',
+        specs: {
+          species: 'Human / Android',
+          engines: 'UTAU · OpenUTAU · SVV',
+          languages: 'Portuguese · Japanese',
+          range: 'D#2 ~ E5',
+          description: 'The first voicebank configured specifically for Brazilian Portuguese (2012). Features dark brown hair, honey eyes, and indigenous Brazilian Caboclo/Tupinambá visual heritage with glowing blue key tattoos and gradient purple-blue transparent jacket.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE#Downloads',
+        },
+      },
+      {
+        id: 'mizuki',
+        name: 'MIZUKI',
+        image: '/mizuki.png',
+        accent: '#504e67',
+        meta: '7th Generation · since 2015',
+        detail: '7th generation Brazilian voice with a distinct coffee theme, created by Makki. Features an expressive feline visual style and versatile singing tone.',
+        tags: ['UTAU', 'DiffSinger', 'Multilingual'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki',
+        owner: 'https://www.youtube.com/@makkidot',
+        ownerName: 'Makki',
+        specs: {
+          species: 'Anthropomorphic Cat',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'Japanese · Portuguese · English',
+          range: 'F2 ~ C4',
+          description: '7th generation Brazilian voicebank inspired by coffee culture. Features dark gray fur, black hair, crimson eyes, and a rich expressive vocal quality.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki#Downloads',
+        },
+      },
+      {
+        id: 'llane-crow',
+        name: 'LLANE CROW',
+        image: '/llane-crow.png',
+        accent: '#b7a6ff',
+        meta: 'Russia · Global Projects',
+        detail: 'International voice from Russia celebrated in global projects, pioneering Russian data sets for neural voice synthesis development.',
+        tags: ['UTAU', 'DiffSinger', 'Multilingual'],
+        profile: 'https://vocadb.net/Ar/86115',
+        owner: 'https://www.youtube.com/channel/UC7k8UHsIwrAfz0hZcQmQvXA',
+        ownerName: 'LOP-P',
+        audioSample: '/llane_standard.mp3',
+        specs: {
+          species: 'Human / Cyborg',
+          engines: 'UTAU · OpenUTAU · DiffSinger · Neural Synth',
+          languages: 'Russian · English · Japanese',
+          range: 'C2 ~ A#4',
+          description: 'International voice originating in Russia and widely celebrated across global projects. Pioneer in releasing Russian datasets for modern neural vocal synthesis.',
+          downloadUrl: 'https://vocadb.net/Ar/86115',
+        },
+      },
+    ],
+    projects: [
+      {
+        index: '01',
+        name: 'KAMAFEU',
+        type: 'Multitrack Synth & Editor · Rust',
+        text: 'A multitrack concatenative synthesizer and voice editor for UTAU/OpenUTAU in Rust. High-fidelity native DSP processing and manual pitch curation.',
+        image: '/kamafeu.png',
+        href: 'https://github.com/studiopomar/kamafeu',
+        tags: ['Rust', 'Native DSP', 'Multitrack', 'Open Source'],
+      },
+      {
+        index: '02',
+        name: 'COPAÍBA NEO',
+        type: 'Cross-platform oto.ini Editor · Rust',
+        text: 'The next generation of voicebank editors: modern UI, built-in recording, multi-selection, and smart consistency plugins.',
+        image: '/copaiba-neo.png',
+        href: 'https://github.com/studiopomar/Copaiba-NEO',
+        tags: ['Rust', 'Cross-Platform', 'Recorder', 'Plugins'],
+      },
+      {
+        index: '03',
+        name: 'COPAIBA LEXIKON LTS',
+        type: 'Stable oto.ini Editor · Python',
+        text: 'Advanced and dependable editing with detailed waveform analysis, mini-map, custom presets, batch processing, and long-term support.',
+        image: '/copaiba-lexicon.png',
+        href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        tags: ['Python', 'LTS', 'Batch Editing', 'Stable'],
+      },
+    ],
+  },
+
+  ar: {
+    nav: {
+      home: 'الرئيسية',
+      voices: 'الأصوات',
+      tools: 'الأدوات',
+      quickstart: 'كيفية البدء',
+      manifesto: 'إيقاع الأرض',
+      github: 'GitHub ↗',
+    },
+    hero: {
+      spotlightBadge: 'ثمرة جديدة في Studio Pomar',
+      spotlightVersion: 'v0.2.0 · Rust',
+      spotlightOpen: 'فتح ↗',
+      spotlightTitle: 'كامافيو (KAMAFEU)',
+      spotlightCategory: 'معالجة إشارات أصلية · متعدد المسارات',
+      spotlightDesc: 'المُركّب الصوتي المتسلسل ومحرر البيانو رول الجديد لـ UTAU و OpenUTAU، مع تحكم يدوي في النغمات وتصيير فائق السرعة بلغة Rust.',
+      spotlightSource: 'المصدر البرمجي ↗',
+      spotlightTools: 'استعراض في الأدوات ↓',
+      eyebrow: 'التركيب الصوتي · البرازيل',
+      titleMain: 'أصوات تضرب',
+      titleEm: 'جذورها في الأرض.',
+      intro: 'مجموعة من بنوك الأصوات والأدوات المفتوحة المصدر لـ UTAU و OpenUTAU. من المجتمع، وإلى المجتمع.',
+      ctaVoices: 'اكتشف الأصوات',
+      ctaProjects: 'استكشف المشاريع ←',
+    },
+    ticker: 'UTAU ✶ OPENUTAU ✶ برمجيات حرة ✶ أصوات برازيلية وعالمية ✶ دعم طويل الأمد ✶ UTAU ✶ OPENUTAU ✶',
+    voicesSection: {
+      eyebrow: '01 · الأصوات',
+      titleMain: 'خمس هويات صوتية.',
+      titleEm: 'في Studio Pomar واحد.',
+      desc: 'يحمل كل صوت قصة، جمالية فريدة، وآفاقاً موسيقية جديدة للمنتجين والفنانين في كل مكان.',
+      listenSample: 'استمع للنموذج',
+      playing: 'جارٍ التشغيل...',
+      stopAudio: 'إيقاف الصوت',
+      viewDetails: 'عرض التفاصيل والتحميل ←',
+      modal: {
+        species: 'النوع / الهوية',
+        engines: 'المحركات المدعومة',
+        languages: 'اللغات المدعومة',
+        range: 'النطاق الصوتي الموصى به',
+        bio: 'السيرة الذاتية والتفاصيل',
+        officialWiki: 'الويكي الرسمي ↗',
+        creatorChannel: 'قناة المنشئ ↗',
+        downloadBank: 'تحميل بنك الصوت الرسمي ↗',
+        close: 'إغلاق',
+      },
+    },
+    toolsSection: {
+      eyebrow: '02 · الأدوات',
+      titleMain: 'شفرة برمجية تجعل',
+      titleEm: 'الصوت يزدهر.',
+      desc: 'برمجيات مفتوحة ومجانية لإنشاء وتعديل وإدارة بنوك الأصوات باستقلالية إبداعية كاملة.',
+    },
+    manifestoSection: {
+      eyebrow: '03 · نهجنا وفلسفتنا',
+      copyMain: 'تكنولوجيا محلية بـ ',
+      copyEm1: 'استقرار وثبات',
+      copyMid: '، وحرية كاملة للتجريب، واحترام عميق لمن يحولون العينات الصوتية إلى ',
+      copyEm2: 'موسيقى ملهمة.',
+      v1Title: 'مفتوح',
+      v1Text: 'مشاريع عامة وموثقة ترحب بمساهمات الجميع.',
+      v2Title: 'مستقر',
+      v2Text: 'نهج الدعم طويل الأمد (LTS) يضمن موثوقية العمل وعدم تعطل مسارات الإنتاج.',
+      v3Title: 'برازيلي وعالمي',
+      v3Text: 'أدوات وأصوات ولدت في البرازيل وتتصل بمجتمع إبداعي عالمي نشط.',
+      readManifesto: 'قراءة البيان: إيقاع الأرض',
+    },
+    quickstartSection: {
+      eyebrow: '04 · الدليل السريع',
+      titleMain: 'كيف تبدأ في',
+      titleEm: 'إنتاج أغانيك الخاصة.',
+      desc: 'خطوات بسيطة لتثبيت بنوك أصوات Studio Pomar والبدء في الإنتاج الموسيقي بكل حرية.',
+      step1Title: 'حمّل بنك الصوت',
+      step1Text: 'اختر أحد أصوات Studio Pomar البرازيلية أو العالمية وحمّل ملف .zip الرسمي.',
+      step2Title: 'ثبته في برنامجك',
+      step2Text: 'في OpenUTAU، ما عليك سوى سحب ملف .zip وإفلاته. وفي UTAU الكلاسيكي، استخرج المجلد داخل voice/.',
+      step3Title: 'أطلق العنان لألحانك',
+      step3Text: 'افتح ملف المقطوعة (.ust أو .ustx)، حدد المغني، وابدأ في التلحين وضبط الفونيمات بدقة!',
+    },
+    footer: {
+      titleMain: 'هل نزرع معاً',
+      titleEm: 'أصواتاً جديدة؟',
+      community: 'المجتمع',
+      content: 'المحتوى',
+      backToTop: 'العودة للأعلى ↑',
+      rights: 'Studio Pomar · الرسوم التفاعلية "نسيم البستان" كود مفتوح المصدر',
+      subtitle: 'UTAU · OpenUTAU · برمجيات حرة',
+    },
+    manifestoPage: {
+      back: '→ العودة إلى الصفحة الرئيسية',
+      eyebrow: 'البيان الفكري · إيقاع الأرض',
+      title1: 'تكنولوجيا محلية بـ ',
+      titleEm1: 'استقرار طويل الأمد',
+      title2: '، وجذور عميقة واحترام لمن يصنع من العينات ',
+      titleEm2: 'فناً موسيقياً.',
+      p1: 'وُلد Studio Pomar من إيمان راسخ بأن تكنولوجيا الصوت الاصطناعي لا ينبغي أن تكون حكراً أو مورداً مغلقاً وسريع الزوال. نحن نزرع أدوات مفتوحة وبنوك أصوات متينة لتمكين المبدعين من إنتاج موسيقاهم باستقلالية تامة.',
+      p2: 'في زمن التحديثات السحابية المؤقتة والاشتراكات المقيدة، ندافع عن استقرار الدعم طويل الأمد (LTS) والحفاظ على خبرة الضبط اليدوي الدقيق للنغمات.',
+      p3: 'برامجنا وبنوكنا الصوتية هي ثمرة تعاون مجتمعي خصب؛ من ضبط ملفات oto.ini إلى هندسة معالجة الإشارات بلغة Rust.',
+      pillarsEyebrow: 'الأركان الخمسة لـ Studio Pomar',
+      pillars: [
+        {
+          num: '01',
+          title: 'الهوية والجذور',
+          desc: 'أدوات وبنوك صوتية صُممت بخصائص اللغة والثقافة البرازيلية وتتفاعل بانفتاح مع الساحة العالمية.',
+        },
+        {
+          num: '02',
+          title: 'المصدر المفتوح والحرية',
+          desc: 'محررات ونماذج برمجية شفافة ومتاحة للجميع. التكنولوجيا يجب أن تظل ملكاً لمستخدميها.',
+        },
+        {
+          num: '03',
+          title: 'دعم طويل الأمد (LTS)',
+          desc: 'برمجيات صُممت لتدوم، مع توافقية مستمرة تمنع تعطل مشاريعك مع تحديثات النظام.',
+        },
+        {
+          num: '04',
+          title: 'الحرفية الصوتية',
+          desc: 'نؤمن بلمسة الفنان الإنسانية في معايرة الصوت والنغمات، فالخوارزمية أداة تعبير وليست بديلاً.',
+        },
+        {
+          num: '05',
+          title: 'العمل الجماعي',
+          desc: 'نشر المعرفة ومساعدة المبدعين الجدد. مشاريعنا تؤتي ثمارها حين نزرعها ونتشاركها معاً.',
+        },
+      ],
+      footerTitle: 'كن جزءاً من هذه الحركة',
+      footerDesc: 'تواصل مع الموسيقيين والمطورين، وشارك أعمالك أو ساهم في التطوير والتوثيق.',
+      homeBtn: 'استكشف الأصوات والأدوات في الرئيسية ←',
+    },
+    voices: [
+      {
+        id: 'viictor',
+        name: 'FIIKTUR',
+        image: '/viictor.webp',
+        accent: '#d7ff3f',
+        meta: 'الجيل الرابع · منذ 2013',
+        detail: 'صوت برازيلي متعدد الاستخدامات من الجيل الرابع يدعم أكثر من 30 لغة بما فيها الآيسلندية والهندية واللغة العربية. معروف في الإمارات باسم FIIKTUR وفي الصين باسم LiNG_WEi.',
+        tags: ['UTAU', 'OpenUTAU', 'متعدد اللغات'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR',
+        owner: 'https://www.youtube.com/@xiaopng',
+        ownerName: 'xiaop',
+        audioSample: '/viictor_sample.mp3',
+        specs: {
+          species: 'إنسان',
+          engines: 'UTAU · OpenUTAU · DiffSinger · NiaoNiao · DeepVocal · NNSVS · Kamafeu · Cadencii',
+          languages: 'البرتغالية · اليابانية · الإنجليزية · أكثر من 30 لغة (تشمل الآيسلندية، الهندية، والعربية)',
+          range: 'A2 ~ G4',
+          description: 'يعد FIIKTUR من أبرز أصوات الجيل الرابع البرازيلي. يمتلك بنوكاً بأكثر من 30 لغة تشمل الآيسلندية والهندية واللغة العربية. يُعرف في الإمارات باسم FIIKTUR وفي الصين باسم LiNG_WEi.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR#Downloads',
+        },
+      },
+      {
+        id: 'yohji',
+        name: 'YOHJI (يوجي)',
+        image: '/yohji.webp',
+        accent: '#ff8a5c',
+        meta: 'الجيل الثاني · منذ 2010',
+        detail: 'صوت برازيلي من الجيل الثاني ورائد في أمريكا اللاتينية في توفير بيانات تدريب DiffSinger لبنوك الأصوات باللغة الإسبانية.',
+        tags: ['UTAU', 'OpenUTAU', 'رائد برازيلي'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji',
+        owner: 'https://www.youtube.com/@oneno_ren',
+        ownerName: 'Oneno',
+        specs: {
+          species: 'إنسان',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'البرتغالية · اليابانية · الإسبانية',
+          range: 'G2 ~ E4',
+          description: 'صوت برازيلي تاريخي من الجيل الثاني ورائد في توفير مجموعات بيانات DiffSinger المفتوحة لإنشاء بنوك أصوات بالإسبانية.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji#Downloads',
+        },
+      },
+      {
+        id: 'eddie',
+        name: 'EDDIE (إيدي)',
+        image: '/eddie.webp',
+        accent: '#00f2ff',
+        meta: 'الجيل الرابع · منذ 2012',
+        detail: 'صوت برازيلي رائد من الجيل الرابع وأول بنك صوتي يتم ضبطه وتخصيصه خصيصاً للبرتغالية البرازيلية عام 2012.',
+        tags: ['UTAU', 'OpenUTAU', 'رائد برازيلي'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE',
+        owner: 'https://www.youtube.com/channel/UC3i4aYpZHhxEWGk8VuBBXgw',
+        ownerName: 'Qkir0n',
+        specs: {
+          species: 'إنسان / أندرويد',
+          engines: 'UTAU · OpenUTAU · SVV',
+          languages: 'البرتغالية · اليابانية',
+          range: 'D#2 ~ E5',
+          description: 'أول بنك صوتي مخصص للبرتغالية البرازيلية (2012). يتميز بتصميم مستوحى من التراث البرازيلي الأصيل مع وشوم مضيئة وسترة شفافة بتدرجات زرقاء وبنفسجية.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE#Downloads',
+        },
+      },
+      {
+        id: 'mizuki',
+        name: 'MIZUKI (ميزوكي)',
+        image: '/mizuki.png',
+        accent: '#504e67',
+        meta: 'الجيل السابع · منذ 2015',
+        detail: 'صوت برازيلي من الجيل السابع مستوحى من ثقافة القهوة من ابتكار Makki. يتميز بمظهر قطي تعبيري وأداء غنائي مرن.',
+        tags: ['UTAU', 'DiffSinger', 'متعدد اللغات'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki',
+        owner: 'https://www.youtube.com/@makkidot',
+        ownerName: 'Makki',
+        specs: {
+          species: 'قط مجسم (Anthropomorphic Cat)',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'اليابانية · البرتغالية · الإنجليزية',
+          range: 'F2 ~ C4',
+          description: 'صوت برازيلي متميز بطابع القهوة والشخصية القطية الأنيقة، بصوت غنائي مرن وتعبيري.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki#Downloads',
+        },
+      },
+      {
+        id: 'llane-crow',
+        name: 'LLANE CROW (لين كرو)',
+        image: '/llane-crow.png',
+        accent: '#b7a6ff',
+        meta: 'روسيا · مشاريع دولية',
+        detail: 'صوت دولي بارز من روسيا يحظى بانتشار عالمي واسع، ورائد في توفير مجموعات البيانات الروسية للبنوك العصبية الحديثة.',
+        tags: ['UTAU', 'DiffSinger', 'متعدد اللغات'],
+        profile: 'https://vocadb.net/Ar/86115',
+        owner: 'https://www.youtube.com/channel/UC7k8UHsIwrAfz0hZcQmQvXA',
+        ownerName: 'LOP-P',
+        audioSample: '/llane_standard.mp3',
+        specs: {
+          species: 'إنسان / سايبورغ',
+          engines: 'UTAU · OpenUTAU · DiffSinger · Neural Synth',
+          languages: 'الروسية · الإنجليزية · اليابانية',
+          range: 'C2 ~ A#4',
+          description: 'صوت عالمي ينحدر من روسيا ويحظى بشهرة كبيرة في الساحة الدولية. رائد في إطلاق بيانات تدريب الذكاء الاصطناعي الصوتي باللغة الروسية.',
+          downloadUrl: 'https://vocadb.net/Ar/86115',
+        },
+      },
+    ],
+    projects: [
+      {
+        index: '01',
+        name: 'KAMAFEU',
+        type: 'مركب ومحرر متعدد المسارات · Rust',
+        text: 'مركب صوتي متسلسل ومحرر لـ UTAU و OpenUTAU مبني بلغة Rust. معالجة إشارات عالية الدقة وتحكم حرفي دقيق في درجات النغم.',
+        image: '/kamafeu.png',
+        href: 'https://github.com/studiopomar/kamafeu',
+        tags: ['Rust', 'معالجة إشارات DSP', 'متعدد المسارات', 'مفتوح المصدر'],
+      },
+      {
+        index: '02',
+        name: 'COPAÍBA NEO',
+        type: 'محرر oto.ini متعدد المنصات · Rust',
+        text: 'الجيل القادم من محررات بنوك الصوت: واجهة حديثة، تسجيل صوتي مدمج، تحديد متعدد وإضافات ذكية لضبط الاتساق.',
+        image: '/copaiba-neo.png',
+        href: 'https://github.com/studiopomar/Copaiba-NEO',
+        tags: ['Rust', 'متعدد المنصات', 'مسجل مدمج', 'إضافات'],
+      },
+      {
+        index: '03',
+        name: 'COPAIBA LEXIKON LTS',
+        type: 'محرر oto.ini مستقر · Python',
+        text: 'تحرير متقدم وموثوق مع شكل موجي تفصيلي، وخريطة مصغرة، وقوالب مخصصة، ومعالجة دفعية ودعم ممتد طويل الأمد.',
+        image: '/copaiba-lexicon.png',
+        href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        tags: ['Python', 'LTS', 'معالجة دفعية', 'مستقر'],
+      },
+    ],
+  },
+
+  ru: {
+    nav: {
+      home: 'Главная',
+      voices: 'Голоса',
+      tools: 'Инструменты',
+      quickstart: 'С чего начать',
+      manifesto: 'Ритм Земли',
+      github: 'GitHub ↗',
+    },
+    hero: {
+      spotlightBadge: 'НОВЫЙ ПЛОД В САДУ',
+      spotlightVersion: 'v0.2.0 · Rust',
+      spotlightOpen: 'Открыть ↗',
+      spotlightTitle: 'KAMAFEU',
+      spotlightCategory: 'Нативный DSP · Многодорожечный',
+      spotlightDesc: 'Новый конкатенативный синтезатор и пиано-ролл для UTAU и OpenUTAU с тонкой ручной настройкой питча и быстрым рендерингом на Rust.',
+      spotlightSource: 'Исходный код ↗',
+      spotlightTools: 'Смотреть в инструментах ↓',
+      eyebrow: 'ГОЛОСОВОЙ СИНТЕЗ · БРАЗИЛИЯ',
+      titleMain: 'Голоса, пустившие',
+      titleEm: 'глубокие корни.',
+      intro: 'Коллектив свободных голосовых банков и инструментов для UTAU и OpenUTAU. Создано сообществом для сообщества.',
+      ctaVoices: 'Познакомиться с голосами',
+      ctaProjects: 'Исследовать проекты →',
+    },
+    ticker: 'UTAU ✶ OPENUTAU ✶ СВОБОДНОЕ ПО ✶ БРАЗИЛЬСКИЕ И МИРОВЫЕ ГОЛОСА ✶ LONG-TERM SUPPORT ✶ UTAU ✶ OPENUTAU ✶',
+    voicesSection: {
+      eyebrow: '01 · ГОЛОСА',
+      titleMain: 'Пять личностей.',
+      titleEm: 'Один цветущий сад.',
+      desc: 'Каждый голос несет свою историю, эстетику и новые звуковые горизонты для музыкантов и вокальных продюсеров.',
+      listenSample: 'Слушать сэмпл',
+      playing: 'Воспроизведение...',
+      stopAudio: 'Остановить',
+      viewDetails: 'Подробнее и загрузки →',
+      modal: {
+        species: 'Вид / Идентичность',
+        engines: 'Поддерживаемые движки',
+        languages: 'Поддерживаемые языки',
+        range: 'Рекомендуемый диапазон',
+        bio: 'Биография и характеристики',
+        officialWiki: 'Официальная Wiki ↗',
+        creatorChannel: 'Канал создателя ↗',
+        downloadBank: 'Скачать официальный войсбанк ↗',
+        close: 'Закрыть',
+      },
+    },
+    toolsSection: {
+      eyebrow: '02 · ИНСТРУМЕНТЫ',
+      titleMain: 'Код, дающий голосу',
+      titleEm: 'расцвести.',
+      desc: 'Свободное программное обеспечение для независимого создания, редактирования и поддержки голосовых банков.',
+    },
+    manifestoSection: {
+      eyebrow: '03 · НАШИ ПРИНЦИПЫ',
+      copyMain: 'Локальные технологии со ',
+      copyEm1: 'стабильностью',
+      copyMid: ', свободой для экспериментов и уважением к тем, кто превращает сэмплы в ',
+      copyEm2: 'музыку.',
+      v1Title: 'Открытость',
+      v1Text: 'Публичные репозитории с прозрачной документацией, открытые для вклада каждого.',
+      v2Title: 'Стабильность',
+      v2Text: 'Философия LTS ставит во главу надежность, аккуратный код и непрерывность работы.',
+      v3Title: 'Бразилия и весь мир',
+      v3Text: 'Инструменты и голоса, рожденные в Бразилии и открытые мировому сообществу.',
+      readManifesto: 'Читать манифест: Ритм Земли',
+    },
+    quickstartSection: {
+      eyebrow: '04 · БЫСТРЫЙ СТАРТ',
+      titleMain: 'Как начать создавать',
+      titleEm: 'свои музыкальные треки.',
+      desc: 'Простое пошаговое руководство по установке голосовых банков Pomar и свободному творчеству.',
+      step1Title: 'Скачайте Voicebank',
+      step1Text: 'Выберите один из бразильских или международных голосов коллектива и загрузите официальный .zip файл.',
+      step2Title: 'Установите в программу',
+      step2Text: 'В OpenUTAU просто перетащите .zip файл в окно программы. В классическом UTAU распакуйте папку в директорию voice/.',
+      step3Title: 'Создавайте свои песни',
+      step3Text: 'Откройте файл трека (.ust или .ustx), выберите голос и пишите музыку с поддержкой точной фонетики и настройки!',
+    },
+    footer: {
+      titleMain: 'Взрастим новые',
+      titleEm: 'голоса вместе?',
+      community: 'СООБЩЕСТВО',
+      content: 'МАТЕРИАЛЫ',
+      backToTop: 'Наверх ↑',
+      rights: 'Studio Pomar · Фоновая интерактивная анимация "Бриз в саду" с открытым исходным кодом',
+      subtitle: 'UTAU · OpenUTAU · свободное ПО',
+    },
+    manifestoPage: {
+      back: '← Вернуться на главную',
+      eyebrow: 'МАНИФЕСТ · РИТМ ЗЕМЛИ',
+      title1: 'Локальные технологии со ',
+      titleEm1: 'стабильностью',
+      title2: ', глубокими корнями и уважением к тем, кто превращает сэмплы в ',
+      titleEm2: 'музыку.',
+      p1: 'Studio POMAR родился из убеждения, что технологии синтеза речи и вокала не должны быть недоступным или временным продуктом. Мы создаем открытые инструменты, долговечные голосовые банки и понятную документацию, чтобы авторы могли свободно творить.',
+      p2: 'В эпоху непредсказуемых обновлений и облачных сервисов мы отстаиваем долгосрочную поддержку (LTS), сохранение мастерства ручной настройки питча и развитие сообщества.',
+      p3: 'Наш софт и голосовые базы — результат плодотворного труда сообщества: от конфигурации файлов oto.ini до низкоуровневой DSP-обработки на Rust.',
+      pillarsEyebrow: '5 СТОЛПОВ STUDIO POMAR',
+      pillars: [
+        {
+          num: '01',
+          title: 'Корни и идентичность',
+          desc: 'Инструменты, словари и голосовые базы с учетом тонкостей языка и открытым диалогом с мировой сценой.',
+        },
+        {
+          num: '02',
+          title: 'Открытый код и свобода',
+          desc: 'Редакторы, скрипты и модели, доступные каждому. Технологии должны принадлежать тем, кто их использует.',
+        },
+        {
+          num: '03',
+          title: 'Долгосрочная стабильность (LTS)',
+          desc: 'Инструменты, созданные на века. Мы заботимся об обратной совместимости, чтобы ваши проекты не ломались.',
+        },
+        {
+          num: '04',
+          title: 'Вокальное мастерство',
+          desc: 'Мы ценим ручной труд в настройке oto.ini и питча. Алгоритмы — лишь инструмент в руках музыканта.',
+        },
+        {
+          num: '05',
+          title: 'Сила сообщества',
+          desc: 'Делиться знаниями, поддерживать новичков и независимых артистов. Наш сад плодоносит лишь вместе.',
+        },
+      ],
+      footerTitle: 'Присоединяйтесь к нам',
+      footerDesc: 'Общайтесь с другими музыкантами и разработчиками, делитесь треками или вносите вклад в код.',
+      homeBtn: 'Исследовать голоса и инструменты на главной →',
+    },
+    voices: [
+      {
+        id: 'viictor',
+        name: 'VIICTOR',
+        image: '/viictor.webp',
+        accent: '#d7ff3f',
+        meta: '4-е поколение · с 2013',
+        detail: 'Универсальный бразильский голос 4-го поколения с банками на более чем 30 языках, включая исландский, хинди и арабский. Известен как FIIKTUR в ОАЭ и LiNG_WEi в Китае.',
+        tags: ['UTAU', 'OpenUTAU', 'Многоязычный'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR',
+        owner: 'https://www.youtube.com/@xiaopng',
+        ownerName: 'xiaop',
+        audioSample: '/viictor_sample.mp3',
+        specs: {
+          species: 'Человек',
+          engines: 'UTAU · OpenUTAU · DiffSinger · NiaoNiao · DeepVocal · NNSVS · Kamafeu · Cadencii',
+          languages: 'Португальский · Японский · Английский · 30+ языков (включая исландский, хинди, арабский)',
+          range: 'A2 ~ G4',
+          description: 'Представитель 4-го поколения бразильских UTAU. Имеет базы на 30+ языках, включая исландский, хинди и арабский. Известен за рубежом как FIIKTUR (в ОАЭ) и LiNG_WEi (в Китае).',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR#Downloads',
+        },
+      },
+      {
+        id: 'yohji',
+        name: 'YOHJI',
+        image: '/yohji.webp',
+        accent: '#ff8a5c',
+        meta: '2-е поколение · с 2010',
+        detail: 'Бразильский голос 2-го поколения, первопроходец в Латинской Америке по выпуску открытых обучающих данных DiffSinger для испанских голосовых банков.',
+        tags: ['UTAU', 'OpenUTAU', 'Пионер BR'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji',
+        owner: 'https://www.youtube.com/@oneno_ren',
+        ownerName: 'Oneno',
+        specs: {
+          species: 'Человек',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'Португальский · Японский · Испанский',
+          range: 'G2 ~ E4',
+          description: 'Знаковый бразильский певец 2-го поколения и латиноамериканский первопроходец по выпуску открытых датасетов DiffSinger для испанского языка.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji#Downloads',
+        },
+      },
+      {
+        id: 'eddie',
+        name: 'EDDIE',
+        image: '/eddie.webp',
+        accent: '#00f2ff',
+        meta: '4-е поколение · с 2012',
+        detail: 'Пионерский бразильский голос 4-го поколения и самый первый войсбанк, созданный специально для бразильского португальского языка в 2012 году.',
+        tags: ['UTAU', 'OpenUTAU', 'Пионер BR'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE',
+        owner: 'https://www.youtube.com/channel/UC3i4aYpZHhxEWGk8VuBBXgw',
+        ownerName: 'Qkir0n',
+        specs: {
+          species: 'Человек / Андроид',
+          engines: 'UTAU · OpenUTAU · SVV',
+          languages: 'Португальский · Японский',
+          range: 'D#2 ~ E5',
+          description: 'Первый войсбанк, созданный специально для бразильского португальского языка (2012). Отличается дизайном с элементами коренного наследия тупинамба, светящимися синими татуировками и градиентной курткой.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE#Downloads',
+        },
+      },
+      {
+        id: 'mizuki',
+        name: 'MIZUKI',
+        image: '/mizuki.png',
+        accent: '#504e67',
+        meta: '7-е поколение · с 2015',
+        detail: 'Бразильский голос 7-го поколения с выразительной кофейной тематикой, созданный Makki. Обладает кошачьим обликом и богатым тембром.',
+        tags: ['UTAU', 'DiffSinger', 'Многоязычный'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki',
+        owner: 'https://www.youtube.com/@makkidot',
+        ownerName: 'Makki',
+        specs: {
+          species: 'Антропоморфный кот',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'Японский · Португальский · Английский',
+          range: 'F2 ~ C4',
+          description: 'Бразильский войсбанк 7-го поколения с вдохновением кофейной эстетикой. Темно-серая шерсть, красные глаза и гибкий вокальный характер.',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki#Downloads',
+        },
+      },
+      {
+        id: 'llane-crow',
+        name: 'LLANE CROW',
+        image: '/llane-crow.png',
+        accent: '#b7a6ff',
+        meta: 'Россия · Мировые проекты',
+        detail: 'Международный голос родом из России, получивший всемирную известность в глобальных проектах. Пионер создания русскоязычных датасетов для нейросетевого синтеза.',
+        tags: ['UTAU', 'DiffSinger', 'Многоязычный'],
+        profile: 'https://vocadb.net/Ar/86115',
+        owner: 'https://www.youtube.com/channel/UC7k8UHsIwrAfz0hZcQmQvXA',
+        ownerName: 'LOP-P',
+        audioSample: '/llane_standard.mp3',
+        specs: {
+          species: 'Человек / Киборг',
+          engines: 'UTAU · OpenUTAU · DiffSinger · Neural Synth',
+          languages: 'Русский · Английский · Японский',
+          range: 'C2 ~ A#4',
+          description: 'Международный голос из России, широко известный в глобальном сообществе. Первопроходец в предоставлении русскоязычных датасетов для нейросетевых вокальных банков.',
+          downloadUrl: 'https://vocadb.net/Ar/86115',
+        },
+      },
+    ],
+    projects: [
+      {
+        index: '01',
+        name: 'KAMAFEU',
+        type: 'Многодорожечный синтезатор и редактор · Rust',
+        text: 'Многодорожечный конкатенативный синтезатор и редактор UTAU/OpenUTAU на Rust. Нативная высокоточная DSP-обработка и ручная настройка питча.',
+        image: '/kamafeu.png',
+        href: 'https://github.com/studiopomar/kamafeu',
+        tags: ['Rust', 'Нативный DSP', 'Многодорожечный', 'Open Source'],
+      },
+      {
+        index: '02',
+        name: 'COPAÍBA NEO',
+        type: 'Кроссплатформенный редактор oto.ini · Rust',
+        text: 'Новое поколение редакторов голосовых банков: современный интерфейс, встроенная запись аудио, множественное выделение и умные плагины.',
+        image: '/copaiba-neo.png',
+        href: 'https://github.com/studiopomar/Copaiba-NEO',
+        tags: ['Rust', 'Кроссплатформенный', 'Запись звука', 'Плагины'],
+      },
+      {
+        index: '03',
+        name: 'COPAIBA LEXIKON LTS',
+        type: 'Стабильный редактор oto.ini · Python',
+        text: 'Продвинутое и надежное редактирование с детальной осциллограммой, миникартой, пресетами, пакетной обрабокой и долгосрочной поддержкой.',
+        image: '/copaiba-lexicon.png',
+        href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        tags: ['Python', 'LTS', 'Пакетная обработка', 'Стабильный'],
+      },
+    ],
+  },
+
+  ja: {
+    nav: {
+      home: 'ホーム',
+      voices: '音源一覧',
+      tools: 'ツール',
+      quickstart: 'はじめに',
+      manifesto: '大地の鼓動 (マニフェスト)',
+      github: 'GitHub ↗',
+    },
+    hero: {
+      spotlightBadge: '果樹園の新しい実り',
+      spotlightVersion: 'v0.2.0 · Rust',
+      spotlightOpen: '開く ↗',
+      spotlightTitle: 'KAMAFEU',
+      spotlightCategory: 'ネイティブDSP · マルチトラック',
+      spotlightDesc: 'UTAUおよびOpenUTAU向けの新しいマルチトラック連結合成シンセサイザー＆ピアノロール。繊細な手動ピッチ調声とRustによる高速レンダリング。',
+      spotlightSource: 'ソースコード ↗',
+      spotlightTools: 'ツール一覧で見る ↓',
+      eyebrow: '歌声合成 · ブラジル',
+      titleMain: '大地に根づく、',
+      titleEm: '豊かな歌声。',
+      intro: 'UTAU・OpenUTAUのためのオープンソース音源とフリーツールの制作集団。コミュニティによって、コミュニティのために。',
+      ctaVoices: '音源を見る',
+      ctaProjects: 'プロジェクトを見る →',
+    },
+    ticker: 'UTAU ✶ OPENUTAU ✶ オープンソース ✶ ブラジル＆グローバル音源 ✶ 長期サポート (LTS) ✶ UTAU ✶ OPENUTAU ✶',
+    voicesSection: {
+      eyebrow: '01 · 音源紹介',
+      titleMain: '5つの個性。',
+      titleEm: 'ひとつの果樹園。',
+      desc: 'それぞれの声が紡ぐ物語、独自の美学、そして世界中の音楽制作者やボーカルアーティストに拓かれる新しい可能性。',
+      listenSample: 'サンプルを聴く',
+      playing: '再生中...',
+      stopAudio: '停止',
+      viewDetails: '詳細・音源ダウンロード →',
+      modal: {
+        species: '種族 / アイデンティティ',
+        engines: '対応エンジン',
+        languages: '対応言語',
+        range: '推奨音域',
+        bio: 'キャラクター詳細・設定',
+        officialWiki: '公式Wiki ↗',
+        creatorChannel: '制作者チャンネル ↗',
+        downloadBank: '公式音源ダウンロード ↗',
+        close: '閉じる',
+      },
+    },
+    toolsSection: {
+      eyebrow: '02 · 開発ツール',
+      titleMain: '声を咲かせる、',
+      titleEm: '自由なコード。',
+      desc: '音源の制作・編集・保守を自分自身の手で自由に行うための、ブラジル発のオープンソースソフトウェア。',
+    },
+    manifestoSection: {
+      eyebrow: '03 · 私たちの理念',
+      copyMain: '確かな',
+      copyEm1: '安定性',
+      copyMid: 'を備えた技術、自由な創造への探求、そして原音サンプルを',
+      copyEm2: '音楽へと昇華させる人々への敬意。',
+      v1Title: 'オープン (Open)',
+      v1Text: '公開リポジトリと明瞭なドキュメントで、誰もが開発に参加できる環境。',
+      v2Title: '高信頼・安定 (LTS)',
+      v2Text: '長期サポート（LTS）により、制作フローが途切れない確かな安定性を重視。',
+      v3Title: 'ブラジルから世界へ',
+      v3Text: 'ブラジルで生まれ育ち、世界のクリエイターと繋がるツールと歌声。',
+      readManifesto: 'マニフェストを読む：大地の鼓動',
+    },
+    quickstartSection: {
+      eyebrow: '04 · クイックスタート',
+      titleMain: '音楽制作を',
+      titleEm: '今すぐ始めよう。',
+      desc: 'Studio POMARの音源をインストールし、自由に楽曲を創作するための簡単3ステップ。',
+      step1Title: '音源をダウンロード',
+      step1Text: 'コレクティブが提供するブラジル・国際音源からお好みの歌声を選び、公式.zipファイルをダウンロードします。',
+      step2Title: 'ソフトにインストール',
+      step2Text: 'OpenUTAUの場合は.zipを画面にドラッグ＆ドロップするだけ。クラシックUTAUの場合はvoice/フォルダ内に解凍・配置します。',
+      step3Title: '音楽を育てよう',
+      step3Text: '楽曲ファイル（.ust または .ustx）を開き、歌手を選択して豊かな音素とピッチ調声で楽曲を紡ぎましょう！',
+    },
+    footer: {
+      titleMain: '新しい歌声を、',
+      titleEm: '一緒に育てませんか？',
+      community: 'コミュニティ',
+      content: 'コンテンツ',
+      backToTop: 'ページ先頭へ ↑',
+      rights: 'Studio Pomar · 環境アニメーション「果樹園のそよ風」オープンソースコード',
+      subtitle: 'UTAU · OpenUTAU · オープンソース',
+    },
+    manifestoPage: {
+      back: '← ホームへ戻る',
+      eyebrow: 'マニフェスト · 大地の鼓動',
+      title1: '確かな',
+      titleEm1: '安定性',
+      title2: 'と深い根を持つ技術、そして音のかけらを',
+      titleEm2: '音楽へと変える人々への敬意。',
+      p1: 'Studio POMARは、歌声合成技術が閉ざされたものや使い捨ての消費財であってはならないという信念から生まれました。私たちはオープンなツール、末永く歌える音源、明快なドキュメントを育み、クリエイターやエンジニアが自身の力で自由に音楽を蒔ける環境を作っています。',
+      p2: '変動の激しいサブスクリプションやクラウド依存が広がる現代において、私たちは長期サポート（LTS）、職人的な原音設定・ピッチ調声ノウハウの継承、そしてブラジルおよび国際的な歌声文化の開花を支えています。',
+      p3: '私たちのソフトウェアと音源は、コミュニティの豊かな土壌から実を結びます。oto.iniのミリ秒単位の調声からRustによる低レイヤーDSPエンジニアリングまで、すべてのコードが音楽的創造力を咲かせるために捧げられています。',
+      pillarsEyebrow: 'STUDIO POMARの5つの柱',
+      pillars: [
+        {
+          num: '01',
+          title: 'ルーツとアイデンティティ',
+          desc: 'ポルトガル語やラテン文化の豊かなニュアンスに最適化されつつ、国際的なUTAUシーンと広く対話するツールと音源。',
+        },
+        {
+          num: '02',
+          title: 'オープンソースと自立性',
+          desc: 'エディタ、スクリプト、モデルをオープンに公開。技術はそれを使うクリエイターの共有財産であるべきだと信じています。',
+        },
+        {
+          num: '03',
+          title: '長期サポート（LTS）の安定性',
+          desc: '長く使い続けられるソフトウェア。OSやシステムのアップデートで制作環境が壊れない高い後方互換性を追求します。',
+        },
+        {
+          num: '04',
+          title: '職人的な調声・クラフトマンシップ',
+          desc: '丁寧な原音設定（oto.ini）や手作業によるピッチ調整など、人間の表現へのこだわりを尊重します。アルゴリズムは表現のための翼です。',
+        },
+        {
+          num: '05',
+          title: 'コミュニティによる共同育成',
+          desc: '知見を共有し、新しい仲間を迎え、インディー制作を応援する。私たちの果樹園は、みんなで育てるからこそ豊かな実を結びます。',
+        },
+      ],
+      footerTitle: 'このムーブメントに参加しよう',
+      footerDesc: '他のミュージシャンや開発者と繋がり、楽曲を共有したり、コードやドキュメントのコントリビューションで参加できます。',
+      homeBtn: 'ホームで音源とツールを見る →',
+    },
+    voices: [
+      {
+        id: 'viictor',
+        name: 'VIICTOR',
+        image: '/viictor.webp',
+        accent: '#d7ff3f',
+        meta: '第4世代 · 2013年〜',
+        detail: 'アイスランド語、ヒンディー語、アラビア語を含む30以上の言語音源を持つ第4世代ブラジル音源。アラブ首長国連邦ではFIIKTUR、中国ではLiNG_WEiとしても知られる。',
+        tags: ['UTAU', 'OpenUTAU', '多言語対応'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR',
+        owner: 'https://www.youtube.com/@xiaopng',
+        ownerName: 'xiaop',
+        audioSample: '/viictor_sample.mp3',
+        specs: {
+          species: '人間',
+          engines: 'UTAU · OpenUTAU · DiffSinger · NiaoNiao · DeepVocal · NNSVS · Kamafeu · Cadencii',
+          languages: 'ポルトガル語 · 日本語 · 英語 · 30言語以上（アイスランド語、ヒンディー語、アラビア語等）',
+          range: 'A2 ~ G4',
+          description: 'ブラジル第4世代UTAU音源の代表格。30以上の言語バンクを持ち、アラビア語バンクも備える。国際的にはUAEでFIIKTUR、中国本土でLiNG_WEiとして親しまれている。',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR#Downloads',
+        },
+      },
+      {
+        id: 'yohji',
+        name: 'YOHJI',
+        image: '/yohji.webp',
+        accent: '#ff8a5c',
+        meta: '第2世代 · 2010年〜',
+        detail: 'ブラジル第2世代の重鎮音源。DiffSingerにおけるスペイン語音源制作向けオープン学習データの提供においてラテンアメリカのパイオニア。',
+        tags: ['UTAU', 'OpenUTAU', 'ブラジル先駆者'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji',
+        owner: 'https://www.youtube.com/@oneno_ren',
+        ownerName: 'Oneno',
+        specs: {
+          species: '人間',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: 'ポルトガル語 · 日本語 · スペイン語',
+          range: 'G2 ~ E4',
+          description: 'ブラジル第2世代を代表するボーカリスト。スペイン語のDiffSinger学習データをいち早く無償公開し、中南米のAI歌声合成の発展に貢献した先駆者。',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Yohji#Downloads',
+        },
+      },
+      {
+        id: 'eddie',
+        name: 'EDDIE',
+        image: '/eddie.webp',
+        accent: '#00f2ff',
+        meta: '第4世代 · 2012年〜',
+        detail: '2012年にリリースされた、ブラジルポルトガル語に特化して原音設定された史上初の画期的な第4世代ブラジル音源。',
+        tags: ['UTAU', 'OpenUTAU', 'ブラジル先駆者'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE',
+        owner: 'https://www.youtube.com/channel/UC3i4aYpZHhxEWGk8VuBBXgw',
+        ownerName: 'Qkir0n',
+        specs: {
+          species: '人間 / アンドロイド',
+          engines: 'UTAU · OpenUTAU · SVV',
+          languages: 'ポルトガル語 · 日本語',
+          range: 'D#2 ~ E5',
+          description: 'ブラジルポルトガル語専用に開発された最初のUTAU音源（2012）。先住民族トゥピナンバ/カボクロの血を引くビジュアル、青く発光する鍵のタトゥー、紫と青のグラデーションが美しいクリアジャケットが特徴。',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/EDDIE#Downloads',
+        },
+      },
+      {
+        id: 'mizuki',
+        name: 'MIZUKI (観月)',
+        image: '/mizuki.png',
+        accent: '#504e67',
+        meta: '第7世代 · 2015年〜',
+        detail: 'Makkiによって制作された、コーヒーをモチーフにした第7世代ブラジル音源。表情豊かな猫系ビジュアルと柔軟な歌唱表現が魅力。',
+        tags: ['UTAU', 'DiffSinger', '多言語対応'],
+        profile: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki',
+        owner: 'https://www.youtube.com/@makkidot',
+        ownerName: 'Makki',
+        specs: {
+          species: '擬人化された猫 (獣人)',
+          engines: 'UTAU · OpenUTAU · DiffSinger',
+          languages: '日本語 · ポルトガル語 · 英語',
+          range: 'F2 ~ C4',
+          description: 'カフェ文化からインスピレーションを受けた第7世代ブラジル音源。濃いグレーの毛並み、黒髪、真紅の瞳を持ち、温かみのある表現力豊かな歌声を持つ。',
+          downloadUrl: 'https://vsynthbr.fandom.com/pt-br/wiki/Mizuki#Downloads',
+        },
+      },
+      {
+        id: 'llane-crow',
+        name: 'LLANE CROW',
+        image: '/llane-crow.png',
+        accent: '#b7a6ff',
+        meta: 'ロシア · 国際プロジェクト',
+        detail: 'ロシア出身で世界規模のプロジェクトで高く評価されている国際音源。ニューラル音声合成向けロシア語データセット提供のパイオニア。',
+        tags: ['UTAU', 'DiffSinger', '多言語対応'],
+        profile: 'https://vocadb.net/Ar/86115',
+        owner: 'https://www.youtube.com/channel/UC7k8UHsIwrAfz0hZcQmQvXA',
+        ownerName: 'LOP-P',
+        audioSample: '/llane_standard.mp3',
+        specs: {
+          species: '人間 / サイボーグ',
+          engines: 'UTAU · OpenUTAU · DiffSinger · Neural Synth',
+          languages: 'ロシア語 · 英語 · 日本語',
+          range: 'C2 ~ A#4',
+          description: 'ロシアから誕生し、世界中のコミュニティで熱狂的に支持されている国際的音源。次世代ニューラル歌声合成用ロシア語データの先駆的提供者。',
+          downloadUrl: 'https://vocadb.net/Ar/86115',
+        },
+      },
+    ],
+    projects: [
+      {
+        index: '01',
+        name: 'KAMAFEU',
+        type: 'マルチトラックシンセ＆エディタ · Rust',
+        text: 'Rust製のUTAU/OpenUTAU向けマルチトラック連結合成シンセサイザー＆エディタ。高忠実度ネイティブDSP処理と繊細なピッチ調声。',
+        image: '/kamafeu.png',
+        href: 'https://github.com/studiopomar/kamafeu',
+        tags: ['Rust', 'ネイティブDSP', 'マルチトラック', 'オープンソース'],
+      },
+      {
+        index: '02',
+        name: 'COPAÍBA NEO',
+        type: 'クロスプラットフォーム oto.ini エディタ · Rust',
+        text: '次世代の音源原音設定エディタ：モダンなUI、内蔵オーディオ録音、一括複数選択、整合性スマートプラグイン。',
+        image: '/copaiba-neo.png',
+        href: 'https://github.com/studiopomar/Copaiba-NEO',
+        tags: ['Rust', 'マルチプラットフォーム', '録音機能', 'プラグイン'],
+      },
+      {
+        index: '03',
+        name: 'COPAIBA LEXIKON LTS',
+        type: '高信頼 oto.ini エディタ · Python',
+        text: '詳細な波形表示、ミニマップ、カスタムプリセット、一括バッチ処理、長期サポート（LTS）を備えた信頼の原音設定ツール。',
+        image: '/copaiba-lexicon.png',
+        href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        tags: ['Python', 'LTS', 'バッチ処理', '高信頼'],
+      },
+    ],
+  },
+};
