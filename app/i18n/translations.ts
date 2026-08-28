@@ -50,6 +50,7 @@ export interface TranslationSchema {
     home: string;
     voices: string;
     tools: string;
+    phonetics: string;
     quickstart: string;
     manifesto: string;
     github: string;
@@ -187,6 +188,7 @@ export const translations: Record<Language, TranslationSchema> = {
       home: 'Início',
       voices: 'Vozes',
       tools: 'Ferramentas',
+      phonetics: 'Fonética BRAPA',
       quickstart: 'Como Começar',
       manifesto: 'O Ritmo da Terra',
       github: 'GitHub ↗',
@@ -552,6 +554,7 @@ export const translations: Record<Language, TranslationSchema> = {
       home: 'Home',
       voices: 'Voices',
       tools: 'Tools',
+      phonetics: 'BRAPA Phonetics',
       quickstart: 'Getting Started',
       manifesto: 'The Rhythm of the Earth',
       github: 'GitHub ↗',
@@ -900,6 +903,7 @@ export const translations: Record<Language, TranslationSchema> = {
       home: 'الرئيسية',
       voices: 'الأصوات',
       tools: 'الأدوات',
+      phonetics: 'الصوتيات BRAPA',
       quickstart: 'كيفية البدء',
       manifesto: 'إيقاع الأرض',
       github: 'GitHub ↗',
@@ -1265,6 +1269,7 @@ export const translations: Record<Language, TranslationSchema> = {
       home: 'Главная',
       voices: 'Голоса',
       tools: 'Инструменты',
+      phonetics: 'Фонетика BRAPA',
       quickstart: 'С чего начать',
       manifesto: 'Ритм Земли',
       github: 'GitHub ↗',
@@ -1630,6 +1635,7 @@ export const translations: Record<Language, TranslationSchema> = {
       home: 'ホーム',
       voices: '音源一覧',
       tools: 'ツール',
+      phonetics: 'BRAPA音素',
       quickstart: 'はじめに',
       manifesto: '大地の鼓動 (マニフェスト)',
       github: 'GitHub ↗',

@@ -4,6 +4,7 @@ import React from 'react';
 import VoiceStack from './VoiceStack';
 import VoiceProfiles from './VoiceProfiles';
 import ToolProfiles from './ToolProfiles';
+import BrapaGuide from './BrapaGuide';
 import { SoundToggle } from './SoundEffects';
 import LanguageSelector from './LanguageSelector';
 import { useLanguage } from './LanguageContext';
@@ -38,6 +39,7 @@ export default function Home() {
             <a href="#top">{t.nav.home}</a>
             <a href="#vozes">{t.nav.voices}</a>
             <a href="#ferramentas">{t.nav.tools}</a>
+            <a href="#guia-brapa">{t.nav.phonetics}</a>
             <a href="#como-comecar">{t.nav.quickstart}</a>
             <a href={`${basePath}/o-ritmo-da-terra/`}>{t.nav.manifesto}</a>
             <a href="https://github.com/studiopomar" target="_blank" rel="noreferrer">{t.nav.github}</a>
@@ -132,6 +134,8 @@ export default function Home() {
           <ToolProfiles projects={projects} />
         </div>
       </section>
+
+      <BrapaGuide />
 
       <section className="manifesto shell">
         <p className="eyebrow">{t.manifestoSection.eyebrow}</p>
