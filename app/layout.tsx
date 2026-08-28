@@ -4,6 +4,7 @@ import SmoothScroll from './SmoothScroll';
 import OrchardBackground from './OrchardBackground';
 import { SoundProvider } from './SoundEffects';
 import { LanguageProvider } from './LanguageContext';
+import { ThemeProvider } from './ThemeContext';
 import BackToTop from './BackToTop';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -140,15 +141,17 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <OrchardBackground />
-        <LanguageProvider>
-          <SoundProvider>
-            <SmoothScroll>
-              {children}
-            </SmoothScroll>
-            <BackToTop />
-          </SoundProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <SoundProvider>
+              <OrchardBackground />
+              <SmoothScroll>
+                {children}
+              </SmoothScroll>
+              <BackToTop />
+            </SoundProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

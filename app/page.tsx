@@ -7,6 +7,7 @@ import ToolProfiles from './ToolProfiles';
 import BrapaGuide from './BrapaGuide';
 import { SoundToggle } from './SoundEffects';
 import LanguageSelector from './LanguageSelector';
+import ThemeSelector from './ThemeSelector';
 import { useLanguage } from './LanguageContext';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -44,6 +45,7 @@ export default function Home() {
             <a href={`${basePath}/o-ritmo-da-terra/`}>{t.nav.manifesto}</a>
             <a href="https://github.com/studiopomar" target="_blank" rel="noreferrer">{t.nav.github}</a>
             <div className="nav-controls">
+              <ThemeSelector />
               <LanguageSelector />
               <SoundToggle />
             </div>
