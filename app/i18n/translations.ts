@@ -66,7 +66,15 @@ export interface TranslationSchema {
     listenSample: string;
     playing: string;
     stopAudio: string;
-    viewDetails: string;
+    filterAll: string;
+    filterBr: string;
+    filterMultilingual: string;
+    filterDiffSinger: string;
+    filterUtau: string;
+    filterPioneers: string;
+    searchPlaceholder: string;
+    noResults: string;
+    resetFilters: string;
     modal: {
       species: string;
       engines: string;
@@ -180,6 +188,15 @@ export const translations: Record<Language, TranslationSchema> = {
       playing: 'Tocando...',
       stopAudio: 'Parar áudio',
       viewDetails: 'Ver detalhes e downloads →',
+      filterAll: 'Todas',
+      filterBr: 'Vozes BR',
+      filterMultilingual: 'Multilíngues',
+      filterDiffSinger: 'DiffSinger',
+      filterUtau: 'UTAU / OpenUTAU',
+      filterPioneers: 'Pioneiros',
+      searchPlaceholder: 'Buscar por voz, idioma, tag ou motor...',
+      noResults: 'Nenhuma voz encontrada com estes critérios.',
+      resetFilters: 'Limpar filtros',
       modal: {
         species: 'Espécie / Identidade',
         engines: 'Motores Suportados',
@@ -465,7 +482,16 @@ export const translations: Record<Language, TranslationSchema> = {
       listenSample: 'Play sample',
       playing: 'Playing...',
       stopAudio: 'Stop audio',
-      viewDetails: 'View details & downloads →',
+      viewDetails: 'Details & downloads →',
+      filterAll: 'All',
+      filterBr: 'BR Voices',
+      filterMultilingual: 'Multilingual',
+      filterDiffSinger: 'DiffSinger',
+      filterUtau: 'UTAU / OpenUTAU',
+      filterPioneers: 'Pioneers',
+      searchPlaceholder: 'Search by voice, language, tag or engine...',
+      noResults: 'No voices found matching these criteria.',
+      resetFilters: 'Clear filters',
       modal: {
         species: 'Species / Identity',
         engines: 'Supported Engines',
@@ -751,7 +777,16 @@ export const translations: Record<Language, TranslationSchema> = {
       listenSample: 'استمع للنموذج',
       playing: 'جارٍ التشغيل...',
       stopAudio: 'إيقاف الصوت',
-      viewDetails: 'عرض التفاصيل والتحميل ←',
+      viewDetails: 'التفاصيل والتحميل →',
+      filterAll: 'الكل',
+      filterBr: 'أصوات برازيلية',
+      filterMultilingual: 'متعدد اللغات',
+      filterDiffSinger: 'DiffSinger',
+      filterUtau: 'UTAU / OpenUTAU',
+      filterPioneers: 'الرواد',
+      searchPlaceholder: 'ابحث بالاسم، اللغة، الوسم أو المحرك...',
+      noResults: 'لم يتم العثور على أصوات تطابق هذه المعايير.',
+      resetFilters: 'مسح الفلاتر',
       modal: {
         species: 'النوع / الهوية',
         engines: 'المحركات المدعومة',
@@ -1038,6 +1073,15 @@ export const translations: Record<Language, TranslationSchema> = {
       playing: 'Воспроизведение...',
       stopAudio: 'Остановить',
       viewDetails: 'Подробнее и загрузки →',
+      filterAll: 'Все',
+      filterBr: 'Бразильские',
+      filterMultilingual: 'Многоязычные',
+      filterDiffSinger: 'DiffSinger',
+      filterUtau: 'UTAU / OpenUTAU',
+      filterPioneers: 'Первопроходцы',
+      searchPlaceholder: 'Поиск по имени, языку, тегу или движку...',
+      noResults: 'Голоса по данным критериям не найдены.',
+      resetFilters: 'Сбросить фильтры',
       modal: {
         species: 'Вид / Идентичность',
         engines: 'Поддерживаемые движки',
@@ -1324,6 +1368,15 @@ export const translations: Record<Language, TranslationSchema> = {
       playing: '再生中...',
       stopAudio: '停止',
       viewDetails: '詳細・音源ダウンロード →',
+      filterAll: 'すべて',
+      filterBr: 'ブラジル音源',
+      filterMultilingual: '多言語対応',
+      filterDiffSinger: 'DiffSinger',
+      filterUtau: 'UTAU / OpenUTAU',
+      filterPioneers: 'パイオニア',
+      searchPlaceholder: '音源名、言語、タグ、エンジンで検索...',
+      noResults: '条件に一致する音源が見つかりませんでした。',
+      resetFilters: 'フィルターをリセット',
       modal: {
         species: '種族 / アイデンティティ',
         engines: '対応エンジン',

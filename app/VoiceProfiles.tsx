@@ -10,6 +10,8 @@ interface VoiceProfilesProps {
   voices: VoiceItem[];
 }
 
+type FilterCategory = 'all' | 'br' | 'multilingual' | 'diffsinger' | 'utau' | 'pioneers';
+
 export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
   const { t } = useLanguage();
   const [selectedVoice, setSelectedVoice] = useState<VoiceItem | null>(null);
@@ -22,11 +24,15 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
   const [duration, setDuration] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
 
+  // Filter and search state
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const audioCtxRef = useRef<AudioContext | null>(null);
   const audioElRef = useRef<HTMLAudioElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const animFrameRef = useRef<number | null>(null);
-  const { playModalOpen, playModalClose } = useSound();
+  const { playModalOpen, playModalClose, playClick } = useSound();
 
   const handleOpenModal = (voice: VoiceItem) => {
     playModalOpen();
@@ -37,6 +43,44 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
     playModalClose();
     setSelectedVoice(null);
   };
+
+  // Memoized filter counts
+  const filterCounts = React.useMemo(() => {
+    return {
+      all: voices.length,
+      br: voices.filter(v => v.id !== 'llane-crow').length,
+      multilingual: voices.filter(v => v.tags.some(tag => /multi/i.test(tag)) || (v.specs?.languages && v.specs.languages.includes('·'))).length,
+      diffsinger: voices.filter(v => v.tags.includes('DiffSinger') || (v.specs?.engines && v.specs.engines.includes('DiffSinger'))).length,
+      utau: voices.filter(v => v.tags.includes('UTAU') || v.tags.includes('OpenUTAU') || (v.specs?.engines && /utau/i.test(v.specs.engines))).length,
+      pioneers: voices.filter(v => v.tags.some(tag => /pioneir|пионер|先駆者|الرواد/i.test(tag)) || ['yohji', 'eddie', 'llane-crow'].includes(v.id)).length,
+    };
+  }, [voices]);
+
+  // Memoized filtered voice items
+  const filteredVoices = React.useMemo(() => {
+    return voices.filter(voice => {
+      // 1. Category pill filter
+      if (activeFilter === 'br' && voice.id === 'llane-crow') return false;
+      if (activeFilter === 'multilingual' && !voice.tags.some(tag => /multi/i.test(tag)) && !(voice.specs?.languages && voice.specs.languages.includes('·'))) return false;
+      if (activeFilter === 'diffsinger' && !voice.tags.includes('DiffSinger') && !(voice.specs?.engines && voice.specs.engines.includes('DiffSinger'))) return false;
+      if (activeFilter === 'utau' && !voice.tags.includes('UTAU') && !voice.tags.includes('OpenUTAU') && !(voice.specs?.engines && /utau/i.test(voice.specs.engines))) return false;
+      if (activeFilter === 'pioneers' && !voice.tags.some(tag => /pioneir|пионер|先駆者|الرواد/i.test(tag)) && !['yohji', 'eddie', 'llane-crow'].includes(voice.id)) return false;
+
+      // 2. Search query filter
+      if (!searchQuery.trim()) return true;
+      const q = searchQuery.toLowerCase().trim();
+      const matchName = voice.name.toLowerCase().includes(q);
+      const matchDetail = voice.detail.toLowerCase().includes(q);
+      const matchMeta = voice.meta.toLowerCase().includes(q);
+      const matchTags = voice.tags.some(tag => tag.toLowerCase().includes(q));
+      const matchOwner = voice.ownerName.toLowerCase().includes(q);
+      const matchEngines = voice.specs?.engines.toLowerCase().includes(q) ?? false;
+      const matchLanguages = voice.specs?.languages.toLowerCase().includes(q) ?? false;
+      const matchSpecies = voice.specs?.species.toLowerCase().includes(q) ?? false;
+
+      return matchName || matchDetail || matchMeta || matchTags || matchOwner || matchEngines || matchLanguages || matchSpecies;
+    });
+  }, [voices, activeFilter, searchQuery]);
 
   // Keep selectedVoice and activeAudioVoice updated if language changes
   useEffect(() => {
@@ -362,48 +406,155 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
 
   return (
     <>
-      <div className="voice-profiles">
-        {voices.map((voice, idx) => {
-          const isThisPlaying = activeAudioVoice?.id === voice.id && isPlayingAudio;
+      {/* Voice Controls Bar: Quick Category Pills & Search Input */}
+      <div className="voice-controls-bar">
+        <div className="voice-filter-pills" role="tablist" aria-label="Filtro de vozes">
+          <button
+            type="button"
+            className={`filter-pill ${activeFilter === 'all' ? 'active' : ''}`}
+            onClick={() => { playClick(); setActiveFilter('all'); }}
+            role="tab"
+            aria-selected={activeFilter === 'all'}
+          >
+            <span>{t.voicesSection.filterAll}</span>
+            <span className="pill-count">{filterCounts.all}</span>
+          </button>
+          <button
+            type="button"
+            className={`filter-pill ${activeFilter === 'br' ? 'active' : ''}`}
+            onClick={() => { playClick(); setActiveFilter('br'); }}
+            role="tab"
+            aria-selected={activeFilter === 'br'}
+          >
+            <span>{t.voicesSection.filterBr}</span>
+            <span className="pill-count">{filterCounts.br}</span>
+          </button>
+          <button
+            type="button"
+            className={`filter-pill ${activeFilter === 'multilingual' ? 'active' : ''}`}
+            onClick={() => { playClick(); setActiveFilter('multilingual'); }}
+            role="tab"
+            aria-selected={activeFilter === 'multilingual'}
+          >
+            <span>{t.voicesSection.filterMultilingual}</span>
+            <span className="pill-count">{filterCounts.multilingual}</span>
+          </button>
+          <button
+            type="button"
+            className={`filter-pill ${activeFilter === 'diffsinger' ? 'active' : ''}`}
+            onClick={() => { playClick(); setActiveFilter('diffsinger'); }}
+            role="tab"
+            aria-selected={activeFilter === 'diffsinger'}
+          >
+            <span>{t.voicesSection.filterDiffSinger}</span>
+            <span className="pill-count">{filterCounts.diffsinger}</span>
+          </button>
+          <button
+            type="button"
+            className={`filter-pill ${activeFilter === 'utau' ? 'active' : ''}`}
+            onClick={() => { playClick(); setActiveFilter('utau'); }}
+            role="tab"
+            aria-selected={activeFilter === 'utau'}
+          >
+            <span>{t.voicesSection.filterUtau}</span>
+            <span className="pill-count">{filterCounts.utau}</span>
+          </button>
+          <button
+            type="button"
+            className={`filter-pill ${activeFilter === 'pioneers' ? 'active' : ''}`}
+            onClick={() => { playClick(); setActiveFilter('pioneers'); }}
+            role="tab"
+            aria-selected={activeFilter === 'pioneers'}
+          >
+            <span>{t.voicesSection.filterPioneers}</span>
+            <span className="pill-count">{filterCounts.pioneers}</span>
+          </button>
+        </div>
 
-          return (
-            <article 
-              className="profile-card" 
-              key={voice.id || voice.name}
-              id={`voice-${voice.id || voice.name.toLowerCase().replace(/\s+/g, '-')}`}
+        <div className="voice-search-wrapper">
+          <span className="voice-search-icon" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+          <input
+            type="text"
+            className="voice-search-input"
+            placeholder={t.voicesSection.searchPlaceholder}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            aria-label={t.voicesSection.searchPlaceholder}
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              className="voice-search-clear"
+              onClick={() => { playClick(); setSearchQuery(''); }}
+              aria-label={t.voicesSection.resetFilters}
+              title={t.voicesSection.resetFilters}
             >
-              <button 
-                className="profile-image-btn" 
-                onClick={() => handleOpenModal(voice)}
-                style={{ '--accent': voice.accent } as React.CSSProperties} 
-                aria-label={`${t.voicesSection.viewDetails}: ${voice.name}`}
+              ✕
+            </button>
+          )}
+        </div>
+      </div>
+
+      {filteredVoices.length === 0 ? (
+        <div className="voice-empty-state">
+          <div className="empty-icon">🍃</div>
+          <p className="empty-msg">{t.voicesSection.noResults}</p>
+          <button 
+            type="button"
+            className="empty-reset-btn"
+            onClick={() => { playClick(); setActiveFilter('all'); setSearchQuery(''); }}
+          >
+            {t.voicesSection.resetFilters}
+          </button>
+        </div>
+      ) : (
+        <div className="voice-profiles">
+          {filteredVoices.map((voice, idx) => {
+            const isThisPlaying = activeAudioVoice?.id === voice.id && isPlayingAudio;
+
+            return (
+              <article 
+                className="profile-card" 
+                key={voice.id || voice.name}
+                id={`voice-${voice.id || voice.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <span>0{idx + 1}</span>
-                <img src={voice.image} alt={voice.name} />
-                <div className="profile-image-hover-indicator">
-                  <span>{t.voicesSection.viewDetails}</span>
-                </div>
-              </button>
-              <div className="profile-copy">
-                <p className="profile-meta">{voice.meta}</p>
-                <div className="profile-name-row">
-                  <h3>{voice.name}</h3>
-                  <button
-                    className={`voice-preview-btn ${isThisPlaying ? 'playing' : ''}`}
-                    onClick={() => playVoicePreview(voice)}
-                    aria-label={isThisPlaying ? `${t.voicesSection.stopAudio} (${voice.name})` : `${t.voicesSection.listenSample} (${voice.name})`}
-                    title={isThisPlaying ? t.voicesSection.stopAudio : t.voicesSection.listenSample}
-                  >
-                    <span className="preview-icon">{isThisPlaying ? '❚❚' : '▶'}</span>
-                    <span>{isThisPlaying ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
-                    {isThisPlaying && (
-                      <span className="mini-equalizer">
-                        <i /><i /><i />
-                      </span>
-                    )}
-                  </button>
-                </div>
-                <p>{voice.detail}</p>
+                <button 
+                  className="profile-image-btn" 
+                  onClick={() => handleOpenModal(voice)}
+                  style={{ '--accent': voice.accent } as React.CSSProperties} 
+                  aria-label={`${t.voicesSection.viewDetails}: ${voice.name}`}
+                >
+                  <span>0{idx + 1}</span>
+                  <img src={voice.image} alt={voice.name} />
+                  <div className="profile-image-hover-indicator">
+                    <span>{t.voicesSection.viewDetails}</span>
+                  </div>
+                </button>
+                <div className="profile-copy">
+                  <p className="profile-meta">{voice.meta}</p>
+                  <div className="profile-name-row">
+                    <h3>{voice.name}</h3>
+                    <button
+                      className={`voice-preview-btn ${isThisPlaying ? 'playing' : ''}`}
+                      onClick={() => playVoicePreview(voice)}
+                      aria-label={isThisPlaying ? `${t.voicesSection.stopAudio} (${voice.name})` : `${t.voicesSection.listenSample} (${voice.name})`}
+                      title={isThisPlaying ? t.voicesSection.stopAudio : t.voicesSection.listenSample}
+                    >
+                      <span className="preview-icon">{isThisPlaying ? '❚❚' : '▶'}</span>
+                      <span>{isThisPlaying ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
+                      {isThisPlaying && (
+                        <span className="mini-equalizer">
+                          <i /><i /><i />
+                        </span>
+                      )}
+                    </button>
+                  </div>
+                  <p>{voice.detail}</p>
                 <div className="tags">
                   {voice.tags.map(tag => (
                     <span key={tag}>{tag}</span>
