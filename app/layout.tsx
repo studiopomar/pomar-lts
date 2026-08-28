@@ -8,6 +8,7 @@ import BackToTop from './BackToTop';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const siteUrl = 'https://studiopomar.github.io/pomar-lts';
+const ogImageUrl = `${siteUrl}/studio-pomar-icon-4096.png`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -66,10 +67,11 @@ export const metadata: Metadata = {
     siteName: 'Studio POMAR',
     images: [
       {
-        url: `${basePath}/og.png`,
-        width: 1200,
-        height: 630,
+        url: ogImageUrl,
+        width: 800,
+        height: 800,
         alt: 'Studio POMAR — Vozes que criam raízes',
+        type: 'image/png',
       },
     ],
     locale: 'pt_BR',
@@ -79,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Studio POMAR | Vozes que criam raízes',
     description: 'Coletivo de voicebanks e ferramentas livres para UTAU e OpenUTAU.',
-    images: [`${basePath}/og.png`],
+    images: [ogImageUrl],
   },
 };
 
@@ -91,7 +93,8 @@ const jsonLd = {
       '@id': `${siteUrl}/#organization`,
       name: 'Studio POMAR',
       url: siteUrl,
-      logo: `${siteUrl}/og.png`,
+      logo: ogImageUrl,
+      image: ogImageUrl,
       sameAs: [
         'https://github.com/studiopomar',
         'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR',
@@ -135,6 +138,14 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" href={`${basePath}/studio-pomar-icon-4096.png`} />
         <link rel="apple-touch-icon" href={`${basePath}/studio-pomar-icon-4096.png`} />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:secure_url" content={ogImageUrl} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="800" />
+        <meta property="og:image:alt" content="Studio POMAR — Vozes que criam raízes" />
+        <meta name="twitter:image" content={ogImageUrl} />
+        <meta name="twitter:image:alt" content="Studio POMAR — Vozes que criam raízes" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
