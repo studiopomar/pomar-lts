@@ -135,23 +135,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <head>
-        <link rel="icon" type="image/png" href={`${basePath}/studio-pomar-icon-4096.png`} />
-        <link rel="apple-touch-icon" href={`${basePath}/studio-pomar-icon-4096.png`} />
-        <meta property="og:image" content={ogImageUrl} />
-        <meta property="og:image:secure_url" content={ogImageUrl} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="800" />
-        <meta property="og:image:height" content="800" />
-        <meta property="og:image:alt" content="Studio POMAR — Vozes que criam raízes" />
-        <meta name="twitter:image" content={ogImageUrl} />
-        <meta name="twitter:image:alt" content="Studio POMAR — Vozes que criam raízes" />
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body>
         <OrchardBackground />
         <LanguageProvider>
           <SoundProvider>
