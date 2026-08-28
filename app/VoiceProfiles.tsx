@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSound } from './SoundEffects';
 import { useLanguage } from './LanguageContext';
 import { VoiceItem } from './i18n/translations';
+import FloatingAudioPlayer from './FloatingAudioPlayer';
 
 interface VoiceProfilesProps {
   voices: VoiceItem[];
@@ -12,11 +13,20 @@ interface VoiceProfilesProps {
 export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
   const { t } = useLanguage();
   const [selectedVoice, setSelectedVoice] = useState<VoiceItem | null>(null);
-  const [playingVoice, setPlayingVoice] = useState<string | null>(null);
+  
+  // Audio playback and floating player state
+  const [activeAudioVoice, setActiveAudioVoice] = useState<VoiceItem | null>(null);
+  const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
+  const [isPlayerVisible, setIsPlayerVisible] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
+
   const audioCtxRef = useRef<AudioContext | null>(null);
   const audioElRef = useRef<HTMLAudioElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { playModalOpen, playModalClose, playClick } = useSound();
+  const animFrameRef = useRef<number | null>(null);
+  const { playModalOpen, playModalClose } = useSound();
 
   const handleOpenModal = (voice: VoiceItem) => {
     playModalOpen();
@@ -24,17 +34,22 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
   };
 
   const handleCloseModal = () => {
-    stopPreview();
     playModalClose();
     setSelectedVoice(null);
   };
 
-  // Keep selectedVoice updated if language changes while modal is open
+  // Keep selectedVoice and activeAudioVoice updated if language changes
   useEffect(() => {
     if (selectedVoice) {
       const updated = voices.find((v) => v.id === selectedVoice.id);
       if (updated) {
         setSelectedVoice(updated);
+      }
+    }
+    if (activeAudioVoice) {
+      const updatedActive = voices.find((v) => v.id === activeAudioVoice.id);
+      if (updatedActive) {
+        setActiveAudioVoice(updatedActive);
       }
     }
   }, [voices]);
@@ -51,6 +66,27 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
     };
   }, [selectedVoice]);
 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (audioElRef.current) {
+        audioElRef.current.pause();
+        audioElRef.current = null;
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+      if (audioCtxRef.current) {
+        try {
+          audioCtxRef.current.close();
+        } catch {}
+      }
+    };
+  }, []);
+
   // Stop current audio preview (both HTML5 audio and Web Audio synthesizer)
   const stopPreview = () => {
     if (audioElRef.current) {
@@ -61,6 +97,10 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = null;
+    }
     if (audioCtxRef.current) {
       try {
         audioCtxRef.current.close();
@@ -69,76 +109,157 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
       }
       audioCtxRef.current = null;
     }
-    setPlayingVoice(null);
+    setIsPlayingAudio(false);
+    setIsPlayerVisible(false);
   };
 
   const playVoicePreview = (voice: VoiceItem) => {
-    if (playingVoice === voice.name) {
-      stopPreview();
-      return;
+    // If the same voice is already loaded
+    if (activeAudioVoice?.id === voice.id && isPlayerVisible) {
+      if (isPlayingAudio) {
+        if (audioElRef.current) {
+          audioElRef.current.pause();
+          setIsPlayingAudio(false);
+          return;
+        } else {
+          stopPreview();
+          return;
+        }
+      } else {
+        if (audioElRef.current) {
+          audioElRef.current.play().catch(() => {});
+          setIsPlayingAudio(true);
+          return;
+        }
+      }
     }
 
-    stopPreview();
-    setPlayingVoice(voice.name);
+    // Stop ongoing audio cleanly without unmounting floating player
+    if (audioElRef.current) {
+      audioElRef.current.pause();
+      audioElRef.current = null;
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = null;
+    }
+    if (audioCtxRef.current) {
+      try {
+        audioCtxRef.current.close();
+      } catch {}
+      audioCtxRef.current = null;
+    }
 
-    // If a real audio sample file is provided (e.g. llane_standard.mp3), play it!
+    // Switch active voice immediately (smoothly transitions colors via CSS)
+    setActiveAudioVoice(voice);
+    setIsPlayingAudio(true);
+    setIsPlayerVisible(true);
+    setCurrentTime(0);
+    setProgress(0);
+    setDuration(0);
+
+    // If real audio sample file is provided, play it!
     if (voice.audioSample) {
       try {
         const audio = new Audio(voice.audioSample);
         audioElRef.current = audio;
-        audio.play().catch(() => {
-          setPlayingVoice(null);
-        });
+
+        audio.ontimeupdate = () => {
+          if (audio.duration && !isNaN(audio.duration) && audio.duration > 0) {
+            setCurrentTime(audio.currentTime);
+            setDuration(audio.duration);
+            setProgress((audio.currentTime / audio.duration) * 100);
+          }
+        };
+
+        audio.onloadedmetadata = () => {
+          if (audio.duration && !isNaN(audio.duration)) {
+            setDuration(audio.duration);
+          }
+        };
+
+        audio.onplay = () => {
+          setIsPlayingAudio(true);
+        };
+
+        audio.onpause = () => {
+          setIsPlayingAudio(false);
+        };
+
         audio.onended = () => {
-          setPlayingVoice(null);
-          audioElRef.current = null;
+          setIsPlayingAudio(false);
+          setProgress(100);
+          if (audio.duration) setCurrentTime(audio.duration);
+          // Graceful fade out after track finishes
+          timeoutRef.current = setTimeout(() => {
+            setIsPlayerVisible(false);
+            audioElRef.current = null;
+          }, 450);
         };
+
         audio.onerror = () => {
-          setPlayingVoice(null);
+          setIsPlayingAudio(false);
+          setIsPlayerVisible(false);
           audioElRef.current = null;
         };
+
+        audio.play().catch(() => {
+          setIsPlayingAudio(false);
+          setIsPlayerVisible(false);
+          audioElRef.current = null;
+        });
+
         return;
       } catch {
-        // Fallback to synth if audio fails
+        // Fallback to synth
       }
     }
 
+    // Web Audio Synthesizer Fallback
     const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     if (!AudioCtx) return;
 
     const ctx = new AudioCtx();
     audioCtxRef.current = ctx;
 
-    // Distinct character melodic motifs
     const melodyMap: Record<string, { notes: number[]; durations: number[]; baseFreq: number }> = {
       'VIICTOR': {
-        notes: [261.63, 329.63, 392.0, 440.0, 523.25], // C4, E4, G4, A4, C5
+        notes: [261.63, 329.63, 392.0, 440.0, 523.25],
         durations: [0.22, 0.22, 0.22, 0.28, 0.55],
         baseFreq: 261.63,
       },
       'YOHJI': {
-        notes: [196.0, 246.94, 293.66, 329.63, 392.0], // G3, B3, D4, E4, G4
+        notes: [196.0, 246.94, 293.66, 329.63, 392.0],
         durations: [0.25, 0.25, 0.25, 0.32, 0.6],
         baseFreq: 196.0,
       },
       'EDDIE': {
-        notes: [146.83, 185.0, 220.0, 293.66, 369.99], // D3, F#3, A3, D4, F#4
+        notes: [146.83, 185.0, 220.0, 293.66, 369.99],
         durations: [0.2, 0.2, 0.22, 0.26, 0.55],
         baseFreq: 146.83,
       },
       'MIZUKI': {
-        notes: [349.23, 440.0, 523.25, 659.25, 880.0], // F4, A4, C5, E5, A5
+        notes: [349.23, 440.0, 523.25, 659.25, 880.0],
         durations: [0.18, 0.18, 0.2, 0.24, 0.5],
         baseFreq: 349.23,
       },
       'LLANE CROW': {
-        notes: [130.81, 196.0, 261.63, 311.13, 392.0], // C3, G3, C4, D#4, G4
+        notes: [130.81, 196.0, 261.63, 311.13, 392.0],
         durations: [0.28, 0.28, 0.28, 0.35, 0.65],
         baseFreq: 130.81,
       },
+      'KODAMA KITO': {
+        notes: [164.81, 196.0, 246.94, 293.66, 329.63],
+        durations: [0.22, 0.22, 0.24, 0.28, 0.55],
+        baseFreq: 164.81,
+      },
     };
 
-    const config = melodyMap[voice.name] || melodyMap['VIICTOR'];
+    const config = melodyMap[voice.name] || melodyMap[voice.id] || melodyMap['KODAMA KITO'] || melodyMap['VIICTOR'];
     let startTime = ctx.currentTime + 0.05;
 
     config.notes.forEach((freq, idx) => {
@@ -176,77 +297,140 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
       startTime += dur * 0.92;
     });
 
-    const totalDuration = (startTime - ctx.currentTime) * 1000;
+    const totalSeconds = startTime - ctx.currentTime;
+    setDuration(totalSeconds);
+
+    const startPerf = performance.now();
+    const animTick = (now: number) => {
+      const elapsed = (now - startPerf) / 1000;
+      setCurrentTime(Math.min(elapsed, totalSeconds));
+      setProgress(Math.min((elapsed / totalSeconds) * 100, 100));
+
+      if (elapsed < totalSeconds) {
+        animFrameRef.current = requestAnimationFrame(animTick);
+      }
+    };
+    animFrameRef.current = requestAnimationFrame(animTick);
+
+    const totalDuration = totalSeconds * 1000;
     timeoutRef.current = setTimeout(() => {
-      setPlayingVoice(null);
+      setIsPlayingAudio(false);
+      setProgress(100);
+      setCurrentTime(totalSeconds);
+      timeoutRef.current = setTimeout(() => {
+        setIsPlayerVisible(false);
+      }, 450);
     }, totalDuration);
+  };
+
+  const handleTogglePlayer = () => {
+    if (!activeAudioVoice) return;
+    if (audioElRef.current) {
+      if (audioElRef.current.paused) {
+        audioElRef.current.play().catch(() => {});
+        setIsPlayingAudio(true);
+      } else {
+        audioElRef.current.pause();
+        setIsPlayingAudio(false);
+      }
+    } else {
+      if (isPlayingAudio) {
+        stopPreview();
+      } else {
+        playVoicePreview(activeAudioVoice);
+      }
+    }
+  };
+
+  const handleSeekPlayer = (percentage: number) => {
+    if (audioElRef.current && audioElRef.current.duration) {
+      const target = percentage * audioElRef.current.duration;
+      audioElRef.current.currentTime = target;
+      setCurrentTime(target);
+      setProgress(percentage * 100);
+    }
+  };
+
+  const handlePlayerVoiceClick = (voice: VoiceItem) => {
+    const slug = voice.name.toLowerCase().replace(/\s+/g, '-');
+    const targetEl = document.getElementById(`voice-${slug}`) || document.getElementById(`voice-${voice.id}`);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth' });
+    }
+    handleOpenModal(voice);
   };
 
   return (
     <>
       <div className="voice-profiles">
-        {voices.map((voice, idx) => (
-          <article 
-            className="profile-card" 
-            key={voice.id || voice.name}
-            id={`voice-${voice.id || voice.name.toLowerCase().replace(/\s+/g, '-')}`}
-          >
-            <button 
-              className="profile-image-btn" 
-              onClick={() => handleOpenModal(voice)}
-              style={{ '--accent': voice.accent } as React.CSSProperties} 
-              aria-label={`${t.voicesSection.viewDetails}: ${voice.name}`}
+        {voices.map((voice, idx) => {
+          const isThisPlaying = activeAudioVoice?.id === voice.id && isPlayingAudio;
+
+          return (
+            <article 
+              className="profile-card" 
+              key={voice.id || voice.name}
+              id={`voice-${voice.id || voice.name.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <span>0{idx + 1}</span>
-              <img src={voice.image} alt={voice.name} />
-              <div className="profile-image-hover-indicator">
-                <span>{t.voicesSection.viewDetails}</span>
+              <button 
+                className="profile-image-btn" 
+                onClick={() => handleOpenModal(voice)}
+                style={{ '--accent': voice.accent } as React.CSSProperties} 
+                aria-label={`${t.voicesSection.viewDetails}: ${voice.name}`}
+              >
+                <span>0{idx + 1}</span>
+                <img src={voice.image} alt={voice.name} />
+                <div className="profile-image-hover-indicator">
+                  <span>{t.voicesSection.viewDetails}</span>
+                </div>
+              </button>
+              <div className="profile-copy">
+                <p className="profile-meta">{voice.meta}</p>
+                <div className="profile-name-row">
+                  <h3>{voice.name}</h3>
+                  <button
+                    className={`voice-preview-btn ${isThisPlaying ? 'playing' : ''}`}
+                    onClick={() => playVoicePreview(voice)}
+                    aria-label={isThisPlaying ? `${t.voicesSection.stopAudio} (${voice.name})` : `${t.voicesSection.listenSample} (${voice.name})`}
+                    title={isThisPlaying ? t.voicesSection.stopAudio : t.voicesSection.listenSample}
+                  >
+                    <span className="preview-icon">{isThisPlaying ? '❚❚' : '▶'}</span>
+                    <span>{isThisPlaying ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
+                    {isThisPlaying && (
+                      <span className="mini-equalizer">
+                        <i /><i /><i />
+                      </span>
+                    )}
+                  </button>
+                </div>
+                <p>{voice.detail}</p>
+                <div className="tags">
+                  {voice.tags.map(tag => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+                <div className="profile-links">
+                  <button 
+                    className="profile-detail-trigger"
+                    onClick={() => handleOpenModal(voice)}
+                  >
+                    {t.voicesSection.viewDetails}
+                  </button>
+                  <a href={voice.owner} target="_blank" rel="noreferrer">
+                    {t.voicesSection.modal.creatorChannel}: {voice.ownerName}
+                  </a>
+                </div>
               </div>
-            </button>
-            <div className="profile-copy">
-              <p className="profile-meta">{voice.meta}</p>
-              <div className="profile-name-row">
-                <h3>{voice.name}</h3>
-                <button
-                  className={`voice-preview-btn ${playingVoice === voice.name ? 'playing' : ''}`}
-                  onClick={() => playVoicePreview(voice)}
-                  aria-label={playingVoice === voice.name ? `${t.voicesSection.stopAudio} (${voice.name})` : `${t.voicesSection.listenSample} (${voice.name})`}
-                  title={playingVoice === voice.name ? t.voicesSection.stopAudio : t.voicesSection.listenSample}
-                >
-                  <span className="preview-icon">{playingVoice === voice.name ? '❚❚' : '▶'}</span>
-                  <span>{playingVoice === voice.name ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
-                  {playingVoice === voice.name && (
-                    <span className="mini-equalizer">
-                      <i /><i /><i />
-                    </span>
-                  )}
-                </button>
-              </div>
-              <p>{voice.detail}</p>
-              <div className="tags">
-                {voice.tags.map(tag => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-              <div className="profile-links">
-                <button 
-                  className="profile-detail-trigger"
-                  onClick={() => handleOpenModal(voice)}
-                >
-                  {t.voicesSection.viewDetails}
-                </button>
-                <a href={voice.owner} target="_blank" rel="noreferrer">
-                  {t.voicesSection.modal.creatorChannel}: {voice.ownerName}
-                </a>
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
 
       {/* Modal / Card Details Overlay */}
       {selectedVoice && (() => {
         const specs = selectedVoice.specs;
+        const isModalPlaying = activeAudioVoice?.id === selectedVoice.id && isPlayingAudio;
+
         return (
           <div 
             className="modal-overlay" 
@@ -281,12 +465,12 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
                   <div className="modal-header-flex">
                     <h2 id="modal-title" className="modal-title">{selectedVoice.name}</h2>
                     <button
-                      className={`voice-preview-btn large ${playingVoice === selectedVoice.name ? 'playing' : ''}`}
+                      className={`voice-preview-btn large ${isModalPlaying ? 'playing' : ''}`}
                       onClick={() => playVoicePreview(selectedVoice)}
                     >
-                      <span className="preview-icon">{playingVoice === selectedVoice.name ? '❚❚' : '▶'}</span>
-                      <span>{playingVoice === selectedVoice.name ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
-                      {playingVoice === selectedVoice.name && (
+                      <span className="preview-icon">{isModalPlaying ? '❚❚' : '▶'}</span>
+                      <span>{isModalPlaying ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
+                      {isModalPlaying && (
                         <span className="mini-equalizer">
                           <i /><i /><i />
                         </span>
@@ -318,16 +502,21 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
                           <span className="spec-val">{specs.range}</span>
                         </div>
                       )}
-                      <div className="spec-desc-block">
-                        <span className="spec-label">{t.voicesSection.modal.bio}</span>
-                        <p className="spec-desc-text">{specs.description}</p>
-                      </div>
                     </div>
                   )}
 
+                  <div className="modal-specs" style={{ marginTop: '12px' }}>
+                    <div className="spec-item full-width">
+                      <span className="spec-label">{t.voicesSection.modal.bio}</span>
+                      <span className="spec-val" style={{ lineHeight: '1.6', fontSize: '0.86rem' }}>
+                        {specs?.description}
+                      </span>
+                    </div>
+                  </div>
+
                   <div className="modal-footer-tags">
                     {selectedVoice.tags.map(tag => (
-                      <span key={tag} className="modal-tag">{tag}</span>
+                      <span className="modal-tag" key={tag}>{tag}</span>
                     ))}
                   </div>
 
@@ -338,9 +527,8 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
                         target="_blank" 
                         rel="noreferrer" 
                         className="modal-action-btn download-btn"
-                        onClick={playClick}
                       >
-                        {t.voicesSection.modal.downloadBank}
+                        {t.voicesSection.modal.downloadBank} <span>↓</span>
                       </a>
                     )}
                     <a 
@@ -366,6 +554,20 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
           </div>
         );
       })()}
+
+      {/* Floating Audio Player (Fixed Bottom Bar) */}
+      <FloatingAudioPlayer
+        activeVoice={activeAudioVoice}
+        isPlaying={isPlayingAudio}
+        isVisible={isPlayerVisible}
+        currentTime={currentTime}
+        duration={duration}
+        progress={progress}
+        onTogglePlay={handleTogglePlayer}
+        onClose={stopPreview}
+        onVoiceClick={handlePlayerVoiceClick}
+        onSeek={handleSeekPlayer}
+      />
     </>
   );
 }
