@@ -23,13 +23,26 @@ export interface VoiceItem {
 }
 
 export interface ProjectItem {
+  id: string;
   index: string;
   name: string;
   type: string;
+  version: string;
+  status: string;
+  language: string;
+  license: string;
   text: string;
+  detail: string;
   image: string;
   href: string;
   tags: string[];
+  features: string[];
+  downloads: {
+    windows?: string;
+    linux?: string;
+    mac?: string;
+    source: string;
+  };
 }
 
 export interface TranslationSchema {
@@ -92,6 +105,22 @@ export interface TranslationSchema {
     titleMain: string;
     titleEm: string;
     desc: string;
+    viewDetails: string;
+    downloadBtn: string;
+    sourceCodeBtn: string;
+    modal: {
+      version: string;
+      status: string;
+      language: string;
+      license: string;
+      keyFeatures: string;
+      downloads: string;
+      windows: string;
+      linux: string;
+      mac: string;
+      source: string;
+      close: string;
+    };
   };
   manifestoSection: {
     eyebrow: string;
@@ -214,6 +243,22 @@ export const translations: Record<Language, TranslationSchema> = {
       titleMain: 'Código que faz',
       titleEm: 'a voz florescer.',
       desc: 'Software livre brasileiro para criar, editar e cuidar de voicebanks com autonomia.',
+      viewDetails: 'Ver detalhes e downloads →',
+      downloadBtn: 'Baixar',
+      sourceCodeBtn: 'Código-fonte no GitHub ↗',
+      modal: {
+        version: 'Versão Atual',
+        status: 'Status',
+        language: 'Linguagem / Stack',
+        license: 'Licença de Software',
+        keyFeatures: 'Principais Recursos & Inovações',
+        downloads: 'Downloads e Instaladores',
+        windows: 'Windows (.exe / .zip)',
+        linux: 'Linux (.AppImage / .tar.gz)',
+        mac: 'macOS (.dmg / Universal)',
+        source: 'Repositório GitHub ↗',
+        close: 'Fechar',
+      },
     },
     manifestoSection: {
       eyebrow: '03 · NOSSO JEITO',
@@ -419,31 +464,85 @@ export const translations: Record<Language, TranslationSchema> = {
     ],
     projects: [
       {
+        id: 'kamafeu',
         index: '01',
         name: 'KAMAFEU',
         type: 'Sintetizador & Editor multifaixa · Rust',
+        version: 'v0.2.0',
+        status: 'Em Desenvolvimento Ativo',
+        language: 'Rust · DSP Nativo',
+        license: 'GPL-3.0',
         text: 'Sintetizador concatenativo multifaixa e editor de voz UTAU/OpenUTAU em Rust. Processamento DSP nativo de alta fidelidade e controle artesanal de afinação.',
+        detail: 'O Kamafeu é o novo sintetizador concatenativo e piano-roll multifaixa desenvolvido pelo Studio Pomar em Rust. Focado em renderização veloz, manipulação precisa de curvas de pitch Bézier e compatibilidade direta com arquivos .ust e .ustx.',
         image: '/kamafeu.png',
         href: 'https://github.com/studiopomar/kamafeu',
         tags: ['Rust', 'DSP Nativo', 'Multifaixa', 'Open Source'],
+        features: [
+          'Renderização DSP em tempo real de altíssima fidelidade',
+          'Edição manual minuciosa de curvas de pitch (Bézier e vibrato)',
+          'Arquitetura multifaixa para duetos, coros e harmonias',
+          'Totalmente compatível com projetos .ust e .ustx'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/kamafeu/releases',
+          linux: 'https://github.com/studiopomar/kamafeu/releases',
+          mac: 'https://github.com/studiopomar/kamafeu/releases',
+          source: 'https://github.com/studiopomar/kamafeu',
+        },
       },
       {
+        id: 'copaiba-neo',
         index: '02',
         name: 'COPAÍBA NEO',
         type: 'Editor de oto.ini multiplataforma · Rust',
+        version: 'v0.1.4',
+        status: 'Nova Geração · Beta',
+        language: 'Rust · Multiplataforma',
+        license: 'MIT',
         text: 'A nova geração de editores de voicebank: interface moderna, gravação de áudio embutida, seleção múltipla e plugins inteligentes de consistência.',
+        detail: 'Projetado do zero em Rust, o Copaíba NEO reimagina a configuração de voicebanks com aceleração gráfica, gravação guiada diretamente na ferramenta e plugins modulares para automatizar o corte de fonemas.',
         image: '/copaiba-neo.png',
         href: 'https://github.com/studiopomar/Copaiba-NEO',
         tags: ['Rust', 'Multiplataforma', 'Gravador', 'Plugins'],
+        features: [
+          'Gravação de amostras guiada com monitoramento de pitch',
+          'Seleção múltipla e alinhamento em lote de fonemas',
+          'Sistema modular de plugins inteligentes para automação de oto.ini',
+          'Interface acelerada por GPU ultra-fluida e moderna'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          source: 'https://github.com/studiopomar/Copaiba-NEO',
+        },
       },
       {
+        id: 'copaiba-lexicon',
         index: '03',
         name: 'COPAIBA LEXIKON LTS',
         type: 'Editor de oto.ini estável · Python',
+        version: 'v1.0.2 LTS',
+        status: 'LTS · Suporte Estendido',
+        language: 'Python · Tkinter / Qt',
+        license: 'GPL-3.0',
         text: 'Edição avançada e confiável com forma de onda detalhada, mini-mapa, presets personalizáveis, trabalho em lote e suporte contínuo de longo prazo.',
+        detail: 'A ferramenta de referência clássica para edição de oto.ini com suporte de longo prazo (LTS). Confiabilidade comprovada em centenas de bancos de voz com visualização detalhada de forma de onda e presets BRAPA.',
         image: '/copaiba-lexicon.png',
         href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
         tags: ['Python', 'LTS', 'Edição em Lote', 'Estável'],
+        features: [
+          'Forma de onda ultra-detalhada com zoom milimétrico e espectrograma',
+          'Mini-mapa para navegação instantânea em bancos com milhares de linhas',
+          'Presets dedicados para fonética brasileira (BRAPA, CVC, CVVC)',
+          'Filosofia LTS: estabilidade sólida e compatibilidade retroativa'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          source: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        },
       },
     ],
   },
@@ -509,6 +608,22 @@ export const translations: Record<Language, TranslationSchema> = {
       titleMain: 'Code that makes',
       titleEm: 'the voice blossom.',
       desc: 'Free and open-source software to create, edit, and maintain voicebanks with complete creative autonomy.',
+      viewDetails: 'Details & downloads →',
+      downloadBtn: 'Download',
+      sourceCodeBtn: 'Source Code on GitHub ↗',
+      modal: {
+        version: 'Current Version',
+        status: 'Status',
+        language: 'Language / Stack',
+        license: 'License',
+        keyFeatures: 'Key Features & Innovations',
+        downloads: 'Downloads & Installers',
+        windows: 'Windows (.exe / .zip)',
+        linux: 'Linux (.AppImage / .tar.gz)',
+        mac: 'macOS (.dmg / Universal)',
+        source: 'GitHub Repository ↗',
+        close: 'Close',
+      },
     },
     manifestoSection: {
       eyebrow: '03 · OUR PHILOSOPHY',
@@ -714,24 +829,61 @@ export const translations: Record<Language, TranslationSchema> = {
     ],
     projects: [
       {
+        id: 'kamafeu',
         index: '01',
         name: 'KAMAFEU',
         type: 'Multitrack Synth & Editor · Rust',
+        version: 'v0.2.0',
+        status: 'Active Development',
+        language: 'Rust · Native DSP',
+        license: 'GPL-3.0',
         text: 'A multitrack concatenative synthesizer and voice editor for UTAU/OpenUTAU in Rust. High-fidelity native DSP processing and manual pitch curation.',
+        detail: 'Kamafeu is Studio Pomar’s new multitrack concatenative synthesizer and piano-roll built in Rust. Engineered for blazing-fast rendering, fine-grained Bézier pitch control, and direct compatibility with .ust and .ustx project files.',
         image: '/kamafeu.png',
         href: 'https://github.com/studiopomar/kamafeu',
         tags: ['Rust', 'Native DSP', 'Multitrack', 'Open Source'],
+        features: [
+          'Real-time high-fidelity native DSP rendering',
+          'Meticulous manual pitch editing with Bézier curve tools',
+          'Multitrack architecture for duets, choruses, and harmonies',
+          'Full compatibility with .ust and .ustx project formats'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/kamafeu/releases',
+          linux: 'https://github.com/studiopomar/kamafeu/releases',
+          mac: 'https://github.com/studiopomar/kamafeu/releases',
+          source: 'https://github.com/studiopomar/kamafeu',
+        },
       },
       {
+        id: 'copaiba-neo',
         index: '02',
         name: 'COPAÍBA NEO',
         type: 'Cross-platform oto.ini Editor · Rust',
+        version: 'v0.1.4',
+        status: 'Next-Gen · Beta',
+        language: 'Rust · Cross-Platform',
+        license: 'MIT',
         text: 'The next generation of voicebank editors: modern UI, built-in recording, multi-selection, and smart consistency plugins.',
+        detail: 'Designed from scratch in Rust, Copaíba NEO reinvents voicebank configuration with GPU-accelerated graphics, guided voice recording, and modular smart plugins for automated phoneme segmentation.',
         image: '/copaiba-neo.png',
         href: 'https://github.com/studiopomar/Copaiba-NEO',
-        tags: ['Rust', 'Cross-Platform', 'Recorder', 'Plugins'],
+        tags: ['Rust', 'Cross-Platform', 'Audio Recording', 'Plugins'],
+        features: [
+          'Guided sample recording with live pitch monitoring',
+          'Multi-selection and batch phoneme alignment',
+          'Modular smart plugin system for oto.ini automation',
+          'Ultra-smooth GPU-accelerated modern interface'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          source: 'https://github.com/studiopomar/Copaiba-NEO',
+        },
       },
       {
+        id: 'copaiba-lexicon',
         index: '03',
         name: 'COPAIBA LEXIKON LTS',
         type: 'Stable oto.ini Editor · Python',
@@ -800,10 +952,26 @@ export const translations: Record<Language, TranslationSchema> = {
       },
     },
     toolsSection: {
-      eyebrow: '02 · الأدوات',
+      eyebrow: '02 · الأدوات والبرمجيات',
       titleMain: 'شفرة برمجية تجعل',
       titleEm: 'الصوت يزدهر.',
       desc: 'برمجيات مفتوحة ومجانية لإنشاء وتعديل وإدارة بنوك الأصوات باستقلالية إبداعية كاملة.',
+      viewDetails: 'التفاصيل والتحميل →',
+      downloadBtn: 'تحميل',
+      sourceCodeBtn: 'الشفرة المصدرية على GitHub ↗',
+      modal: {
+        version: 'الإصدار الحالي',
+        status: 'حالة المشروع',
+        language: 'لغة البرمجة / التقنية',
+        license: 'ترخيص البرمجية',
+        keyFeatures: 'الميزات الرئيسية والابتكارات',
+        downloads: 'التحميل وحزم التثبيت',
+        windows: 'ويندوز (.exe / .zip)',
+        linux: 'لينكس (.AppImage / .tar.gz)',
+        mac: 'ماك (.dmg / Universal)',
+        source: 'مستودع GitHub ↗',
+        close: 'إغلاق',
+      },
     },
     manifestoSection: {
       eyebrow: '03 · نهجنا وفلسفتنا',
@@ -1009,31 +1177,85 @@ export const translations: Record<Language, TranslationSchema> = {
     ],
     projects: [
       {
+        id: 'kamafeu',
         index: '01',
         name: 'KAMAFEU',
         type: 'مركب ومحرر متعدد المسارات · Rust',
+        version: 'v0.2.0',
+        status: 'قيد التطوير النشط',
+        language: 'Rust · معالجة إشارات DSP',
+        license: 'GPL-3.0',
         text: 'مركب صوتي متسلسل ومحرر لـ UTAU و OpenUTAU مبني بلغة Rust. معالجة إشارات عالية الدقة وتحكم حرفي دقيق في درجات النغم.',
+        detail: 'برنامج Kamafeu هو مركب صوتي متسلسل ومحرر بيانو-رول متعدد المسارات طوره Studio Pomar بلغة Rust، لسرعة فائقة في الرندر وتحكم سلس في منحنيات النغم وتوافقية كاملة مع ملفات .ust و .ustx.',
         image: '/kamafeu.png',
         href: 'https://github.com/studiopomar/kamafeu',
         tags: ['Rust', 'معالجة إشارات DSP', 'متعدد المسارات', 'مفتوح المصدر'],
+        features: [
+          'معالجة إشارات صوتية في الوقت الحقيقي بدقة عالية',
+          'تحرير يدوي دقيق لمنحنيات النغم وأشكال Bézier',
+          'هيكلية متعددة المسارات للأداء الثنائي والجوقات',
+          'توافقية كاملة مع مشاريع .ust و .ustx'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/kamafeu/releases',
+          linux: 'https://github.com/studiopomar/kamafeu/releases',
+          mac: 'https://github.com/studiopomar/kamafeu/releases',
+          source: 'https://github.com/studiopomar/kamafeu',
+        },
       },
       {
+        id: 'copaiba-neo',
         index: '02',
         name: 'COPAÍBA NEO',
         type: 'محرر oto.ini متعدد المنصات · Rust',
+        version: 'v0.1.4',
+        status: 'الجيل الجديد · تجريبي',
+        language: 'Rust · متعدد المنصات',
+        license: 'MIT',
         text: 'الجيل القادم من محررات بنوك الصوت: واجهة حديثة، تسجيل صوتي مدمج، تحديد متعدد وإضافات ذكية لضبط الاتساق.',
+        detail: 'تمت إعادة تصميمه بالكامل بلغة Rust لتسريع ضبط بنوك الأصوات عبر واجهة تسريع رسومي GPU ونظام تسجيل تفاعلي موجه وإضافات ذكية لتقطيع الفونيمات.',
         image: '/copaiba-neo.png',
         href: 'https://github.com/studiopomar/Copaiba-NEO',
         tags: ['Rust', 'متعدد المنصات', 'مسجل مدمج', 'إضافات'],
+        features: [
+          'تسجيل عينات صوتية موجه مع مراقبة مباشرة لدرجة النغم',
+          'تحديد متعدد ومحاذاة دفعية سريعة للفونيمات',
+          'نظام إضافات ذكي ومطور لأتمتة ملفات oto.ini',
+          'واجهة استخدام عصرية فائقة السلاسة بمعالجة GPU'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          source: 'https://github.com/studiopomar/Copaiba-NEO',
+        },
       },
       {
+        id: 'copaiba-lexicon',
         index: '03',
         name: 'COPAIBA LEXIKON LTS',
         type: 'محرر oto.ini مستقر · Python',
+        version: 'v1.0.2 LTS',
+        status: 'دعم طويل الأمد (LTS)',
+        language: 'Python · Tkinter / Qt',
+        license: 'GPL-3.0',
         text: 'تحرير متقدم وموثوق مع شكل موجي تفصيلي، وخريطة مصغرة، وقوالب مخصصة، ومعالجة دفعية ودعم ممتد طويل الأمد.',
+        detail: 'الأداة المرجعية الكلاسيكية الموثوقة لضبط ملفات oto.ini مع دعم ممتد طويل الأمد (LTS). دقة متناهية في رسم الموجات الصوتية وقوالب فونيمية متكاملة.',
         image: '/copaiba-lexicon.png',
         href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
         tags: ['Python', 'LTS', 'معالجة دفعية', 'مستقر'],
+        features: [
+          'شكل موجي فائق الدقة مع تكبير ميلي-متري ومطياف صوتي',
+          'خريطة مصغرة للتنقل الفوري في البنوك الكبيرة',
+          'قوالب مخصصة للصوتيات البرازيلية (BRAPA, CVC, CVVC)',
+          'فلسفة LTS: استقرار تام وموثوقية إنتاجية'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          source: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        },
       },
     ],
   },
@@ -1099,6 +1321,22 @@ export const translations: Record<Language, TranslationSchema> = {
       titleMain: 'Код, дающий голосу',
       titleEm: 'расцвести.',
       desc: 'Свободное программное обеспечение для независимого создания, редактирования и поддержки голосовых банков.',
+      viewDetails: 'Подробнее и загрузки →',
+      downloadBtn: 'Скачать',
+      sourceCodeBtn: 'Исходный код на GitHub ↗',
+      modal: {
+        version: 'Текущая версия',
+        status: 'Статус разработки',
+        language: 'Язык / Стек',
+        license: 'Лицензия',
+        keyFeatures: 'Ключевые возможности и инновации',
+        downloads: 'Загрузки и инсталляторы',
+        windows: 'Windows (.exe / .zip)',
+        linux: 'Linux (.AppImage / .tar.gz)',
+        mac: 'macOS (.dmg / Universal)',
+        source: 'Репозиторий на GitHub ↗',
+        close: 'Закрыть',
+      },
     },
     manifestoSection: {
       eyebrow: '03 · НАШИ ПРИНЦИПЫ',
@@ -1304,31 +1542,85 @@ export const translations: Record<Language, TranslationSchema> = {
     ],
     projects: [
       {
+        id: 'kamafeu',
         index: '01',
         name: 'KAMAFEU',
         type: 'Многодорожечный синтезатор и редактор · Rust',
+        version: 'v0.2.0',
+        status: 'Активная разработка',
+        language: 'Rust · Нативный DSP',
+        license: 'GPL-3.0',
         text: 'Многодорожечный конкатенативный синтезатор и редактор UTAU/OpenUTAU на Rust. Нативная высокоточная DSP-обработка и ручная настройка питча.',
+        detail: 'Kamafeu — новый многодорожечный конкатенативный синтезатор и пиано-ролл от Studio Pomar на Rust. Создан для быстрого рендеринга, тонкого управления кривыми Безье и прямой совместимости с проектами .ust и .ustx.',
         image: '/kamafeu.png',
         href: 'https://github.com/studiopomar/kamafeu',
         tags: ['Rust', 'Нативный DSP', 'Многодорожечный', 'Open Source'],
+        features: [
+          'Высокоточный нативный DSP-рендеринг в реальном времени',
+          'Тонкая ручная правка питча кривыми Безье и вибрато',
+          'Многодорожечная архитектура для дуэтов, хоров и гармоний',
+          'Полная совместимость с форматами .ust и .ustx'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/kamafeu/releases',
+          linux: 'https://github.com/studiopomar/kamafeu/releases',
+          mac: 'https://github.com/studiopomar/kamafeu/releases',
+          source: 'https://github.com/studiopomar/kamafeu',
+        },
       },
       {
+        id: 'copaiba-neo',
         index: '02',
         name: 'COPAÍBA NEO',
         type: 'Кроссплатформенный редактор oto.ini · Rust',
+        version: 'v0.1.4',
+        status: 'Новое поколение · Бета',
+        language: 'Rust · Кроссплатформенный',
+        license: 'MIT',
         text: 'Новое поколение редакторов голосовых банков: современный интерфейс, встроенная запись аудио, множественное выделение и умные плагины.',
+        detail: 'Созданный с нуля на Rust, Copaíba NEO переосмысливает настройку голосовых банков с аппаратным GPU-ускорением, встроенным рекордером и модульными плагинами для авто-разметки.',
         image: '/copaiba-neo.png',
         href: 'https://github.com/studiopomar/Copaiba-NEO',
         tags: ['Rust', 'Кроссплатформенный', 'Запись звука', 'Плагины'],
+        features: [
+          'Запись сэмплов с интерактивным контролем питча',
+          'Множественное выделение и пакетное выравнивание фонем',
+          'Модульная система умных плагинов для автоматизации oto.ini',
+          'Современный интерфейс с плавным GPU-ускорением'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          source: 'https://github.com/studiopomar/Copaiba-NEO',
+        },
       },
       {
+        id: 'copaiba-lexicon',
         index: '03',
         name: 'COPAIBA LEXIKON LTS',
         type: 'Стабильный редактор oto.ini · Python',
+        version: 'v1.0.2 LTS',
+        status: 'LTS · Долгосрочная поддержка',
+        language: 'Python · Tkinter / Qt',
+        license: 'GPL-3.0',
         text: 'Продвинутое и надежное редактирование с детальной осциллограммой, миникартой, пресетами, пакетной обрабокой и долгосрочной поддержкой.',
+        detail: 'Классический эталонный редактор oto.ini с долгосрочной поддержкой (LTS). Проверенная надежность на сотнях голосовых баз с миллиметровой точностью волны и пресетами BRAPA.',
         image: '/copaiba-lexicon.png',
         href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
         tags: ['Python', 'LTS', 'Пакетная обработка', 'Стабильный'],
+        features: [
+          'Ультрадетализированная волна с миллиметровым зумом и спектрограммой',
+          'Миникарта для мгновенной навигации по банкам в тысячи строк',
+          'Специальные пресеты для фонетики (BRAPA, CVC, CVVC)',
+          'Философия LTS: абсолютная стабильность и обратная совместимость'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          source: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        },
       },
     ],
   },
@@ -1394,6 +1686,22 @@ export const translations: Record<Language, TranslationSchema> = {
       titleMain: '声を咲かせる、',
       titleEm: '自由なコード。',
       desc: '音源の制作・編集・保守を自分自身の手で自由に行うための、ブラジル発のオープンソースソフトウェア。',
+      viewDetails: '詳細・ダウンロード →',
+      downloadBtn: 'ダウンロード',
+      sourceCodeBtn: 'GitHub ソースコード ↗',
+      modal: {
+        version: '現在のバージョン',
+        status: '開発ステータス',
+        language: '言語 / 技術スタック',
+        license: 'ソフトウェアライセンス',
+        keyFeatures: '主な機能と特徴',
+        downloads: 'ダウンロード＆インストーラー',
+        windows: 'Windows (.exe / .zip)',
+        linux: 'Linux (.AppImage / .tar.gz)',
+        mac: 'macOS (.dmg / Universal)',
+        source: 'GitHub リポジトリ ↗',
+        close: '閉じる',
+      },
     },
     manifestoSection: {
       eyebrow: '03 · 私たちの理念',
@@ -1599,31 +1907,85 @@ export const translations: Record<Language, TranslationSchema> = {
     ],
     projects: [
       {
+        id: 'kamafeu',
         index: '01',
         name: 'KAMAFEU',
         type: 'マルチトラックシンセ＆エディタ · Rust',
+        version: 'v0.2.0',
+        status: 'アクティブ開発中',
+        language: 'Rust · ネイティブDSP',
+        license: 'GPL-3.0',
         text: 'Rust製のUTAU/OpenUTAU向けマルチトラック連結合成シンセサイザー＆エディタ。高忠実度ネイティブDSP処理と繊細なピッチ調声。',
+        detail: 'KamafeuはStudio PomarがRustで開発した新世代のマルチトラック連結合成シンセサイザー＆ピアノロールです。超高速レンダリング、ベジェ曲線による精密なピッチ調声、.ustおよび.ustxファイルとの直接互換性を備えています。',
         image: '/kamafeu.png',
         href: 'https://github.com/studiopomar/kamafeu',
         tags: ['Rust', 'ネイティブDSP', 'マルチトラック', 'オープンソース'],
+        features: [
+          '超高忠実度のリアルタイムネイティブDSPレンダリング',
+          'ベジェ曲線とビブラートによる精緻な手動ピッチ調声',
+          'デュエット・コーラス・和音作成のためのマルチトラック構成',
+          '.ust および .ustx プロジェクトフォーマットへの完全対応'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/kamafeu/releases',
+          linux: 'https://github.com/studiopomar/kamafeu/releases',
+          mac: 'https://github.com/studiopomar/kamafeu/releases',
+          source: 'https://github.com/studiopomar/kamafeu',
+        },
       },
       {
+        id: 'copaiba-neo',
         index: '02',
         name: 'COPAÍBA NEO',
         type: 'クロスプラットフォーム oto.ini エディタ · Rust',
+        version: 'v0.1.4',
+        status: '次世代 · ベータ',
+        language: 'Rust · クロスプラットフォーム',
+        license: 'MIT',
         text: '次世代の音源原音設定エディタ：モダンなUI、内蔵オーディオ録音、一括複数選択、整合性スマートプラグイン。',
+        detail: 'Rustでゼロから設計されたCopaíba NEOは、GPUアクセラレーションによる高速描画、ガイド付き内蔵オーディオ録音、音素自動分割スマートプラグインで原音設定のワークフローを一新します。',
         image: '/copaiba-neo.png',
         href: 'https://github.com/studiopomar/Copaiba-NEO',
         tags: ['Rust', 'マルチプラットフォーム', '録音機能', 'プラグイン'],
+        features: [
+          'リアルタイムピッチ監視付きのガイド録音機能',
+          '複数選択と音素の一括バッチアライメント',
+          'oto.ini自動化のためのモジュール式スマートプラグイン',
+          'GPUアクセラレーションによる超滑らかなモダンUI'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-NEO/releases',
+          source: 'https://github.com/studiopomar/Copaiba-NEO',
+        },
       },
       {
+        id: 'copaiba-lexicon',
         index: '03',
         name: 'COPAIBA LEXIKON LTS',
         type: '高信頼 oto.ini エディタ · Python',
+        version: 'v1.0.2 LTS',
+        status: 'LTS · 長期サポート',
+        language: 'Python · Tkinter / Qt',
+        license: 'GPL-3.0',
         text: '詳細な波形表示、ミニマップ、カスタムプリセット、一括バッチ処理、長期サポート（LTS）を備えた信頼の原音設定ツール。',
+        detail: '数多くの音源制作で実証された長期サポート（LTS）の定番原音設定ツール。ミリ秒単位の波形ズームとブラジルポルトガル語音素プリセットを標準搭載。',
         image: '/copaiba-lexicon.png',
         href: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
         tags: ['Python', 'LTS', 'バッチ処理', '高信頼'],
+        features: [
+          'ミリ秒ズームとスペクトログラムを備えた超詳細波形表示',
+          '数千行の音源でも瞬時に移動できるミニマップ',
+          '音素プリセット（BRAPA, CVC, CVVC）標準搭載',
+          'LTS哲学：盤石の安定性と高い後方互換性を保証'
+        ],
+        downloads: {
+          windows: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          linux: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          mac: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS/releases',
+          source: 'https://github.com/studiopomar/Copaiba-Lexicon-LTS',
+        },
       },
     ],
   },

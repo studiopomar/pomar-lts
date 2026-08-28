@@ -639,13 +639,13 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
 .project-card {
   background: #1e201b;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
   color: inherit;
-  text-decoration: none;
+  position: relative;
 }
 
 .project-card:hover {
@@ -661,6 +661,7 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   background: #141611;
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
 }
 
 .project-card-image-wrap img {
@@ -669,6 +670,7 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   object-fit: cover;
   object-position: top center;
   transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: block;
 }
 
 .project-card:hover .project-card-image-wrap img {
@@ -680,6 +682,38 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   inset: 0;
   background: linear-gradient(180deg, transparent 50%, rgba(20, 22, 18, 0.75) 100%);
   pointer-events: none;
+}
+
+.project-image-hover-indicator {
+  position: absolute;
+  inset: 0;
+  background: rgba(23, 24, 21, 0.5);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-image-hover-indicator span {
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  transform: scale(0.92);
+  transition: transform 0.2s ease;
+}
+
+.project-card-image-wrap:hover .project-image-hover-indicator {
+  opacity: 1;
+}
+
+.project-card-image-wrap:hover .project-image-hover-indicator span {
+  transform: scale(1);
 }
 
 .project-card-badge {
@@ -696,11 +730,35 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   z-index: 2;
 }
 
+.project-card-version-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(18, 19, 17, 0.85);
+  backdrop-filter: blur(8px);
+  color: #d7ff3f;
+  border: 1px solid rgba(215, 255, 63, 0.3);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+
 .project-card-body {
-  padding: 24px 22px 26px;
+  padding: 24px 22px 24px;
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.project-card-type-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
 }
 
 .project-card-type {
@@ -709,7 +767,18 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
-  margin: 0 0 6px;
+  margin: 0;
+}
+
+.project-card-status-pill {
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #c9cbbf;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .project-card-title {
@@ -723,18 +792,39 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   justify-content: space-between;
 }
 
-.project-card-title span {
-  font-size: 1.1rem;
-  color: var(--lime);
-  transition: transform 0.2s ease;
+.project-title-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  letter-spacing: inherit;
+  transition: color 0.2s ease;
 }
 
-.project-card:hover .project-card-title span {
+.project-title-btn:hover {
+  color: var(--lime);
+}
+
+.project-github-link {
+  font-size: 1.1rem;
+  color: var(--lime);
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.project-card:hover .project-github-link {
   transform: translate(3px, -3px);
 }
 
 .project-card-description {
-  margin: 0 0 20px;
+  margin: 0 0 18px;
   font-size: 0.88rem;
   line-height: 1.6;
   color: #b0b2a7;
@@ -745,7 +835,7 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: auto;
+  margin-bottom: 20px;
 }
 
 .project-card-tag {
@@ -758,6 +848,261 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   color: #d1d3c7;
 }
 
+.project-card-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.project-details-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #faf9f2;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.project-details-btn:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #121311;
+  transform: translateY(-1px);
+}
+
+.project-quick-os-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.os-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #d2d4c8;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.os-badge:hover {
+  background: var(--lime);
+  color: #121311;
+  border-color: var(--lime);
+  transform: translateY(-1px);
+}
+
+/* Tool Details Modal */
+.tool-modal-card {
+  --accent: #d7ff3f;
+}
+
+.tool-modal-grid {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.tool-modal-image-panel {
+  position: relative;
+  background: #141611;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.tool-modal-image-panel img {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tool-image-badge-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.tool-version-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: #121311;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.tool-license-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(18, 19, 17, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #faf9f2;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.tool-modal-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.tool-modal-index {
+  font-size: 0.74rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--lime);
+  color: #121311;
+}
+
+.tool-status-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(215, 255, 63, 0.15);
+  border: 1px solid rgba(215, 255, 63, 0.35);
+  color: #d7ff3f;
+  white-space: nowrap;
+}
+
+.tool-features-block {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.tool-features-title {
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #d7ff3f;
+  margin: 0 0 12px;
+}
+
+.tool-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tool-features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #d4d6cb;
+}
+
+.feature-bullet {
+  color: var(--lime);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.tool-downloads-container {
+  margin: 18px 0;
+}
+
+.tool-downloads-title {
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #faf9f2;
+  margin: 0 0 12px;
+}
+
+.tool-downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.tool-os-download-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #faf9f2;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tool-os-download-card:hover {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #121311;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.tool-os-download-card .os-icon {
+  font-size: 1.2rem;
+}
+
+.tool-os-download-card .os-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tool-os-download-card .os-name {
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.tool-os-download-card .os-format {
+  font-size: 0.65rem;
+  opacity: 0.75;
+  font-weight: 600;
+}
+
+.tool-os-download-card .os-arrow {
+  font-size: 0.95rem;
+  font-weight: 900;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.tool-os-download-card:hover .os-arrow {
+  transform: translateY(2px);
+  opacity: 1;
+}
+
 @media (max-width: 900px) {
   .project-cards-grid {
     grid-template-columns: 1fr;
@@ -766,6 +1111,19 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   .project-card-image-wrap {
     height: 240px;
   }
+  .tool-modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+[dir="rtl"] .project-card-version-badge {
+  right: auto;
+  left: 14px;
+}
+
+[dir="rtl"] .tool-image-badge-overlay {
+  left: auto;
+  right: 20px;
 }
 .manifesto { padding-block: 145px; }
 .manifesto-copy { max-width: 1050px; margin: 30px 0 90px; font-size: clamp(2.7rem, 6vw, 6rem); line-height: .98; letter-spacing: -.065em; font-weight: 800; }

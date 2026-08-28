@@ -3,6 +3,7 @@
 import React from 'react';
 import VoiceStack from './VoiceStack';
 import VoiceProfiles from './VoiceProfiles';
+import ToolProfiles from './ToolProfiles';
 import { SoundToggle } from './SoundEffects';
 import LanguageSelector from './LanguageSelector';
 import { useLanguage } from './LanguageContext';
@@ -128,30 +129,7 @@ export default function Home() {
             </div>
             <p>{t.toolsSection.desc}</p>
           </div>
-          <div className="project-cards-grid">
-            {projects.map(project => (
-              <a className="project-card" href={project.href} target="_blank" rel="noreferrer" key={project.name}>
-                <div className="project-card-image-wrap">
-                  <img src={project.image} alt={`Interface do ${project.name}`} />
-                  <div className="project-card-image-overlay" />
-                  <span className="project-card-badge">{project.index}</span>
-                </div>
-                <div className="project-card-body">
-                  <p className="project-card-type">{project.type}</p>
-                  <h3 className="project-card-title">
-                    {project.name}
-                    <span>↗</span>
-                  </h3>
-                  <p className="project-card-description">{project.text}</p>
-                  <div className="project-card-tags">
-                    {project.tags.map(tag => (
-                      <span className="project-card-tag" key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+          <ToolProfiles projects={projects} />
         </div>
       </section>
 
