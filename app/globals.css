@@ -1119,6 +1119,9 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
 }
 
 .os-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.68rem;
   font-weight: 700;
   padding: 4px 8px;
@@ -1129,6 +1132,10 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
   text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap;
+}
+
+.os-badge svg {
+  flex-shrink: 0;
 }
 
 .os-badge:hover {
@@ -1303,7 +1310,14 @@ h1 em { display: inline-block; color: #5e6b22; font-family: Georgia, 'Times New 
 }
 
 .tool-os-download-card .os-icon {
-  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lime);
+}
+
+.tool-os-download-card:hover .os-icon {
+  color: #121311;
 }
 
 .tool-os-download-card .os-info {
@@ -2735,6 +2749,9 @@ footer { background: #bacb4c; padding: 100px 0 25px; }
 }
 
 .brapa-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 10px 20px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
@@ -2901,6 +2918,9 @@ footer { background: #bacb4c; padding: 100px 0 25px; }
 }
 
 .copy-btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.72rem;
   font-weight: 800;
   color: #8c8e82;
@@ -2912,6 +2932,9 @@ footer { background: #bacb4c; padding: 100px 0 25px; }
 }
 
 .copied-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.72rem;
   font-weight: 900;
   color: var(--lime);

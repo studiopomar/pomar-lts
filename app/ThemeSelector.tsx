@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTheme, SeasonTheme, SEASONS } from './ThemeContext';
 import { useLanguage } from './LanguageContext';
 import { useSound } from './SoundEffects';
+import { LeafIcon, AutumnLeafIcon, MoonIcon, CheckIcon } from './Icons';
 
 export default function ThemeSelector() {
   const { theme, setTheme } = useTheme();
@@ -35,7 +36,16 @@ export default function ThemeSelector() {
     }
   };
 
-  const currentSeason = SEASONS.find((s) => s.id === theme) || SEASONS[0];
+  const renderSeasonIcon = (id: SeasonTheme, size = 15) => {
+    switch (id) {
+      case 'summer':
+        return <LeafIcon size={size} />;
+      case 'autumn':
+        return <AutumnLeafIcon size={size} />;
+      case 'night':
+        return <MoonIcon size={size} />;
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -66,7 +76,7 @@ export default function ThemeSelector() {
         aria-label="Selecionar ambiente e estação do Pomar"
         title="Ambiente do Pomar (Estações)"
       >
-        <span className="theme-emoji">{currentSeason.emoji}</span>
+        <span className="theme-icon-slot">{renderSeasonIcon(theme, 15)}</span>
         <span className="theme-name">{getSeasonName(theme)}</span>
         <span className={`theme-arrow ${isOpen ? 'open' : ''}`}>▾</span>
       </button>
@@ -81,9 +91,9 @@ export default function ThemeSelector() {
               onClick={() => handleSelectTheme(s.id)}
               role="menuitem"
             >
-              <span className="theme-option-emoji">{s.emoji}</span>
+              <span className="theme-option-icon">{renderSeasonIcon(s.id, 16)}</span>
               <span className="theme-option-label">{getSeasonName(s.id)}</span>
-              {theme === s.id && <span className="theme-check">✓</span>}
+              {theme === s.id && <span className="theme-check"><CheckIcon size={13} /></span>}
             </button>
           ))}
         </div>

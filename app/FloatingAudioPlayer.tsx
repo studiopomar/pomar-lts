@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { VoiceItem } from './i18n/translations';
+import { PlayIcon, PauseIcon, CloseIcon } from './Icons';
 
 interface FloatingAudioPlayerProps {
   activeVoice: VoiceItem | null;
@@ -120,7 +121,7 @@ export default function FloatingAudioPlayer({
         aria-label={isPlaying ? 'Pausar áudio' : 'Reproduzir áudio'}
         title={isPlaying ? 'Pausar' : 'Reproduzir'}
       >
-        <span>{isPlaying ? '❚❚' : '▶'}</span>
+        <span>{isPlaying ? <PauseIcon size={14} /> : <PlayIcon size={14} />}</span>
       </button>
 
       {/* Close Button */}
@@ -130,7 +131,7 @@ export default function FloatingAudioPlayer({
         aria-label="Fechar reprodutor"
         title="Fechar reprodutor"
       >
-        ✕
+        <CloseIcon size={14} />
       </button>
     </div>
   );

@@ -3,6 +3,15 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from './LanguageContext';
 import { useSound } from './SoundEffects';
+import {
+  VowelIcon,
+  ConsonantsIcon,
+  FlashIcon,
+  LightbulbIcon,
+  CopyIcon,
+  CheckIcon,
+  CloseIcon,
+} from './Icons';
 
 interface PhonemeItem {
   symbol: string;
@@ -177,7 +186,8 @@ export default function BrapaGuide() {
               role="tab"
               aria-selected={activeTab === 'vowels'}
             >
-              🅰️ {language === 'pt' ? 'Vogais & Ditongos' : 'Vowels & Diphthongs'}
+              <VowelIcon size={15} />
+              <span>{language === 'pt' ? 'Vogais & Ditongos' : 'Vowels & Diphthongs'}</span>
             </button>
             <button
               className={`brapa-tab-btn ${activeTab === 'consonants' ? 'active' : ''}`}
@@ -185,7 +195,8 @@ export default function BrapaGuide() {
               role="tab"
               aria-selected={activeTab === 'consonants'}
             >
-              🔤 {language === 'pt' ? 'Consoantes & Encontros' : 'Consonants & Clusters'}
+              <ConsonantsIcon size={15} />
+              <span>{language === 'pt' ? 'Consoantes & Encontros' : 'Consonants & Clusters'}</span>
             </button>
             <button
               className={`brapa-tab-btn ${activeTab === 'rules' ? 'active' : ''}`}
@@ -193,7 +204,8 @@ export default function BrapaGuide() {
               role="tab"
               aria-selected={activeTab === 'rules'}
             >
-              ⚡ {language === 'pt' ? 'Sintaxe & Transições' : 'Syntax & Transitions'}
+              <FlashIcon size={15} />
+              <span>{language === 'pt' ? 'Sintaxe & Transições' : 'Syntax & Transitions'}</span>
             </button>
             <button
               className={`brapa-tab-btn ${activeTab === 'tips' ? 'active' : ''}`}
@@ -201,7 +213,8 @@ export default function BrapaGuide() {
               role="tab"
               aria-selected={activeTab === 'tips'}
             >
-              💡 {language === 'pt' ? 'Dicas de Produção' : 'Production Tips'}
+              <LightbulbIcon size={15} />
+              <span>{language === 'pt' ? 'Dicas de Produção' : 'Production Tips'}</span>
             </button>
           </div>
 
@@ -221,7 +234,7 @@ export default function BrapaGuide() {
                   onClick={() => setSearchQuery('')}
                   aria-label="Limpar busca"
                 >
-                  ✕
+                  <CloseIcon size={13} />
                 </button>
               )}
             </div>
@@ -252,9 +265,13 @@ export default function BrapaGuide() {
                 <p className="phoneme-desc">{p.description}</p>
                 <div className="phoneme-copy-hint">
                   {copiedSymbol === p.symbol ? (
-                    <span className="copied-tag">✓ Copiado!</span>
+                    <span className="copied-tag">
+                      <CheckIcon size={13} /> Copiado!
+                    </span>
                   ) : (
-                    <span className="copy-btn-text">Copiar fonema ⎘</span>
+                    <span className="copy-btn-text">
+                      <CopyIcon size={13} /> Copiar fonema
+                    </span>
                   )}
                 </div>
               </div>

@@ -5,6 +5,7 @@ import { useSound } from './SoundEffects';
 import { useLanguage } from './LanguageContext';
 import { VoiceItem } from './i18n/translations';
 import FloatingAudioPlayer from './FloatingAudioPlayer';
+import { CloseIcon, LeafIcon, PlayIcon, PauseIcon } from './Icons';
 
 interface VoiceProfilesProps {
   voices: VoiceItem[];
@@ -494,7 +495,7 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
               aria-label={t.voicesSection.resetFilters}
               title={t.voicesSection.resetFilters}
             >
-              ✕
+              <CloseIcon size={13} />
             </button>
           )}
         </div>
@@ -502,7 +503,7 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
 
       {filteredVoices.length === 0 ? (
         <div className="voice-empty-state">
-          <div className="empty-icon">🍃</div>
+          <div className="empty-icon"><LeafIcon size={32} /></div>
           <p className="empty-msg">{t.voicesSection.noResults}</p>
           <button 
             type="button"
@@ -545,7 +546,7 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
                       aria-label={isThisPlaying ? `${t.voicesSection.stopAudio} (${voice.name})` : `${t.voicesSection.listenSample} (${voice.name})`}
                       title={isThisPlaying ? t.voicesSection.stopAudio : t.voicesSection.listenSample}
                     >
-                      <span className="preview-icon">{isThisPlaying ? '❚❚' : '▶'}</span>
+                      <span className="preview-icon">{isThisPlaying ? <PauseIcon size={11} /> : <PlayIcon size={11} />}</span>
                       <span>{isThisPlaying ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
                       {isThisPlaying && (
                         <span className="mini-equalizer">
@@ -602,7 +603,7 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
                 onClick={handleCloseModal}
                 aria-label={t.voicesSection.modal.close}
               >
-                ✕
+                <CloseIcon size={15} />
               </button>
               
               <div className="modal-grid">
@@ -619,7 +620,7 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
                       className={`voice-preview-btn large ${isModalPlaying ? 'playing' : ''}`}
                       onClick={() => playVoicePreview(selectedVoice)}
                     >
-                      <span className="preview-icon">{isModalPlaying ? '❚❚' : '▶'}</span>
+                      <span className="preview-icon">{isModalPlaying ? <PauseIcon size={12} /> : <PlayIcon size={12} />}</span>
                       <span>{isModalPlaying ? t.voicesSection.playing : t.voicesSection.listenSample}</span>
                       {isModalPlaying && (
                         <span className="mini-equalizer">

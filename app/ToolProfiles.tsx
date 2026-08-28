@@ -4,6 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from './LanguageContext';
 import { useSound } from './SoundEffects';
 import { ProjectItem } from './i18n/translations';
+import {
+  WindowsIcon,
+  LinuxIcon,
+  AppleIcon,
+  ExternalLinkIcon,
+  DownloadIcon,
+  CloseIcon,
+} from './Icons';
 
 interface ToolProfilesProps {
   projects: ProjectItem[];
@@ -101,7 +109,7 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
                   aria-label={`${project.name} no GitHub`}
                   title="GitHub"
                 >
-                  ↗
+                  <ExternalLinkIcon size={16} />
                 </a>
               </h3>
 
@@ -133,7 +141,7 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
                       title="Windows (.exe / .zip)"
                       onClick={playClick}
                     >
-                      🪟 Win
+                      <WindowsIcon size={12} /> Win
                     </a>
                   )}
                   {project.downloads?.linux && (
@@ -145,7 +153,7 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
                       title="Linux (.AppImage / .tar.gz)"
                       onClick={playClick}
                     >
-                      🐧 Linux
+                      <LinuxIcon size={12} /> Linux
                     </a>
                   )}
                   {project.downloads?.mac && (
@@ -157,7 +165,7 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
                       title="macOS (.dmg)"
                       onClick={playClick}
                     >
-                      🍏 macOS
+                      <AppleIcon size={12} /> macOS
                     </a>
                   )}
                 </div>
@@ -187,7 +195,7 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
               onClick={handleCloseModal}
               aria-label={t.toolsSection.modal.close}
             >
-              ✕
+              <CloseIcon size={15} />
             </button>
 
             <div className="modal-grid tool-modal-grid">
@@ -268,12 +276,12 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
                         className="tool-os-download-card"
                         onClick={playClick}
                       >
-                        <span className="os-icon">🪟</span>
+                        <span className="os-icon"><WindowsIcon size={20} /></span>
                         <div className="os-info">
                           <span className="os-name">Windows</span>
                           <span className="os-format">.exe / .zip</span>
                         </div>
-                        <span className="os-arrow">↓</span>
+                        <span className="os-arrow"><DownloadIcon size={16} /></span>
                       </a>
                     )}
 
@@ -285,12 +293,12 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
                         className="tool-os-download-card"
                         onClick={playClick}
                       >
-                        <span className="os-icon">🐧</span>
+                        <span className="os-icon"><LinuxIcon size={20} /></span>
                         <div className="os-info">
                           <span className="os-name">Linux</span>
                           <span className="os-format">.AppImage / .tar.gz</span>
                         </div>
-                        <span className="os-arrow">↓</span>
+                        <span className="os-arrow"><DownloadIcon size={16} /></span>
                       </a>
                     )}
 
@@ -302,12 +310,12 @@ export default function ToolProfiles({ projects }: ToolProfilesProps) {
                         className="tool-os-download-card"
                         onClick={playClick}
                       >
-                        <span className="os-icon">🍏</span>
+                        <span className="os-icon"><AppleIcon size={20} /></span>
                         <div className="os-info">
                           <span className="os-name">macOS</span>
                           <span className="os-format">.dmg / Universal</span>
                         </div>
-                        <span className="os-arrow">↓</span>
+                        <span className="os-arrow"><DownloadIcon size={16} /></span>
                       </a>
                     )}
                   </div>
