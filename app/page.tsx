@@ -4,7 +4,6 @@ import React from 'react';
 import VoiceStack from './VoiceStack';
 import VoiceProfiles from './VoiceProfiles';
 import ToolProfiles from './ToolProfiles';
-import BrapaGuide from './BrapaGuide';
 import { SoundToggle } from './SoundEffects';
 import LanguageSelector from './LanguageSelector';
 import ThemeSelector from './ThemeSelector';
@@ -40,8 +39,7 @@ export default function Home() {
             <a href="#top">{t.nav.home}</a>
             <a href="#vozes">{t.nav.voices}</a>
             <a href="#ferramentas">{t.nav.tools}</a>
-            <a href="#guia-brapa">{t.nav.phonetics}</a>
-            <a href="#como-comecar">{t.nav.quickstart}</a>
+            <a href={`${basePath}/brapa/`}>{t.nav.phonetics}</a>
             <a href={`${basePath}/o-ritmo-da-terra/`}>{t.nav.manifesto}</a>
             <a href="https://github.com/studiopomar" target="_blank" rel="noreferrer">{t.nav.github}</a>
             <div className="nav-controls">
@@ -137,8 +135,6 @@ export default function Home() {
         </div>
       </section>
 
-      <BrapaGuide />
-
       <section className="manifesto shell">
         <p className="eyebrow">{t.manifestoSection.eyebrow}</p>
         <p className="manifesto-copy">
@@ -153,34 +149,6 @@ export default function Home() {
           <a className="button button-dark" href={`${basePath}/o-ritmo-da-terra/`}>
             {t.manifestoSection.readManifesto} <span>{dir === 'rtl' ? '←' : '→'}</span>
           </a>
-        </div>
-      </section>
-
-      <section className="quickstart-section shell" id="como-comecar">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">{t.quickstartSection.eyebrow}</p>
-            <h2>{t.quickstartSection.titleMain}<br /><em>{t.quickstartSection.titleEm}</em></h2>
-          </div>
-          <p>{t.quickstartSection.desc}</p>
-        </div>
-
-        <div className="quickstart-grid">
-          <div className="quickstart-card">
-            <span className="step-num">01</span>
-            <h3>{t.quickstartSection.step1Title}</h3>
-            <p>{t.quickstartSection.step1Text}</p>
-          </div>
-          <div className="quickstart-card">
-            <span className="step-num">02</span>
-            <h3>{t.quickstartSection.step2Title}</h3>
-            <p>{t.quickstartSection.step2Text}</p>
-          </div>
-          <div className="quickstart-card">
-            <span className="step-num">03</span>
-            <h3>{t.quickstartSection.step3Title}</h3>
-            <p>{t.quickstartSection.step3Text}</p>
-          </div>
         </div>
       </section>
 
@@ -203,6 +171,7 @@ export default function Home() {
             </div>
             <div>
               <p>{t.footer.content}</p>
+              <a href={`${basePath}/brapa/`}>{t.nav.phonetics}</a>
               <a href={`${basePath}/o-ritmo-da-terra/`}>{t.nav.manifesto}</a>
               <a href="#top">{t.footer.backToTop}</a>
             </div>

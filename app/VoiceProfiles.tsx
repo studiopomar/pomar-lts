@@ -53,7 +53,7 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
       multilingual: voices.filter(v => v.tags.some(tag => /multi/i.test(tag)) || (v.specs?.languages && v.specs.languages.includes('·'))).length,
       diffsinger: voices.filter(v => v.tags.includes('DiffSinger') || (v.specs?.engines && v.specs.engines.includes('DiffSinger'))).length,
       utau: voices.filter(v => v.tags.includes('UTAU') || v.tags.includes('OpenUTAU') || (v.specs?.engines && /utau/i.test(v.specs.engines))).length,
-      pioneers: voices.filter(v => v.tags.some(tag => /pioneir|пионер|先駆者|الرواد/i.test(tag)) || ['yohji', 'eddie', 'llane-crow'].includes(v.id)).length,
+      pioneers: voices.filter(v => v.tags.some(tag => /pioneir|пионер|先駆者|الرواد/i.test(tag)) || ['viictor', 'yohji', 'eddie', 'llane-crow'].includes(v.id)).length,
     };
   }, [voices]);
 
@@ -65,7 +65,7 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
       if (activeFilter === 'multilingual' && !voice.tags.some(tag => /multi/i.test(tag)) && !(voice.specs?.languages && voice.specs.languages.includes('·'))) return false;
       if (activeFilter === 'diffsinger' && !voice.tags.includes('DiffSinger') && !(voice.specs?.engines && voice.specs.engines.includes('DiffSinger'))) return false;
       if (activeFilter === 'utau' && !voice.tags.includes('UTAU') && !voice.tags.includes('OpenUTAU') && !(voice.specs?.engines && /utau/i.test(voice.specs.engines))) return false;
-      if (activeFilter === 'pioneers' && !voice.tags.some(tag => /pioneir|пионер|先駆者|الرواد/i.test(tag)) && !['yohji', 'eddie', 'llane-crow'].includes(voice.id)) return false;
+      if (activeFilter === 'pioneers' && !voice.tags.some(tag => /pioneir|пионер|先駆者|الرواد/i.test(tag)) && !['viictor', 'yohji', 'eddie', 'llane-crow'].includes(voice.id)) return false;
 
       // 2. Search query filter
       if (!searchQuery.trim()) return true;
@@ -301,6 +301,16 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
         notes: [164.81, 196.0, 246.94, 293.66, 329.63],
         durations: [0.22, 0.22, 0.24, 0.28, 0.55],
         baseFreq: 164.81,
+      },
+      'APOLLYO XII': {
+        notes: [220.0, 261.63, 311.13, 369.99, 440.0],
+        durations: [0.22, 0.22, 0.24, 0.28, 0.55],
+        baseFreq: 220.0,
+      },
+      'apollyo': {
+        notes: [220.0, 261.63, 311.13, 369.99, 440.0],
+        durations: [0.22, 0.22, 0.24, 0.28, 0.55],
+        baseFreq: 220.0,
       },
     };
 
@@ -556,27 +566,28 @@ export default function VoiceProfiles({ voices }: VoiceProfilesProps) {
                     </button>
                   </div>
                   <p>{voice.detail}</p>
-                <div className="tags">
-                  {voice.tags.map(tag => (
-                    <span key={tag}>{tag}</span>
-                  ))}
+                  <div className="tags">
+                    {voice.tags.map(tag => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                  <div className="profile-links">
+                    <button 
+                      className="profile-detail-trigger"
+                      onClick={() => handleOpenModal(voice)}
+                    >
+                      {t.voicesSection.viewDetails}
+                    </button>
+                    <a href={voice.owner} target="_blank" rel="noreferrer">
+                      {t.voicesSection.modal.creatorChannel}: {voice.ownerName}
+                    </a>
+                  </div>
                 </div>
-                <div className="profile-links">
-                  <button 
-                    className="profile-detail-trigger"
-                    onClick={() => handleOpenModal(voice)}
-                  >
-                    {t.voicesSection.viewDetails}
-                  </button>
-                  <a href={voice.owner} target="_blank" rel="noreferrer">
-                    {t.voicesSection.modal.creatorChannel}: {voice.ownerName}
-                  </a>
-                </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
 
       {/* Modal / Card Details Overlay */}
       {selectedVoice && (() => {

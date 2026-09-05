@@ -31,6 +31,8 @@ export const metadata: Metadata = {
     'MIZUKI',
     'Kodama Kito',
     'Kito',
+    'Apollyo XII',
+    'Apollyo',
     'Vocaloid Brasil',
     'Software livre de áudio',
     'Síntese vocal',
@@ -100,6 +102,7 @@ const jsonLd = {
         'https://github.com/studiopomar',
         'https://vsynthbr.fandom.com/pt-br/wiki/VIICTOR',
         'https://vsynthbr.fandom.com/pt-br/wiki/Kodama_Kito',
+        'https://vsynthbr.fandom.com/pt-br/wiki/Apollyo_XII',
         'https://vocadb.net/Ar/86115',
       ],
       description: 'Coletivo de voicebanks e ferramentas livres para UTAU, OpenUTAU e síntese vocal brasileira.',
@@ -136,6 +139,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        {/* Inline script to set theme before hydration — prevents FOUC */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('studio_pomar_theme');if(t==='summer'||t==='autumn'||t==='night'){document.documentElement.setAttribute('data-theme',t);}else{document.documentElement.setAttribute('data-theme','summer');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body>
         <script
           type="application/ld+json"

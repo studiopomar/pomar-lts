@@ -26,7 +26,7 @@ export default function ManifestoPage() {
             <a href={`${basePath}/#top`}>{t.nav.home}</a>
             <a href={`${basePath}/#vozes`}>{t.nav.voices}</a>
             <a href={`${basePath}/#ferramentas`}>{t.nav.tools}</a>
-            <a href={`${basePath}/#guia-brapa`}>{t.nav.phonetics}</a>
+            <a href={`${basePath}/brapa/`}>{t.nav.phonetics}</a>
             <a href={`${basePath}/o-ritmo-da-terra/`} style={{ textDecoration: 'underline', textUnderlineOffset: '5px' }}>{t.nav.manifesto}</a>
             <a href="https://github.com/studiopomar" target="_blank" rel="noreferrer">{t.nav.github}</a>
             <div className="nav-controls">

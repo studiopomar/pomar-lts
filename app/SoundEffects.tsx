@@ -7,6 +7,7 @@ interface SoundContextType {
   toggleMute: () => void;
   playHover: () => void;
   playClick: () => void;
+  playCopy: () => void;
   playCardSelect: () => void;
   playModalOpen: () => void;
   playModalClose: () => void;
@@ -15,13 +16,14 @@ interface SoundContextType {
 
 const SoundContext = createContext<SoundContextType>({
   isMuted: false,
-  toggleMute: () => {},
-  playHover: () => {},
-  playClick: () => {},
-  playCardSelect: () => {},
-  playModalOpen: () => {},
-  playModalClose: () => {},
-  playWhoosh: () => {},
+  toggleMute: () => { },
+  playHover: () => { },
+  playClick: () => { },
+  playCopy: () => { },
+  playCardSelect: () => { },
+  playModalOpen: () => { },
+  playModalClose: () => { },
+  playWhoosh: () => { },
 });
 
 export function SoundProvider({ children }: { children: React.ReactNode }) {
@@ -119,6 +121,34 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
 
       osc.start();
       osc.stop(ctx.currentTime + 0.05);
+    } catch {
+      // Ignore
+    }
+  };
+
+  // Crisp high double-blip when copying
+  const playCopy = () => {
+    if (isMuted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    try {
+      [880, 1318.51].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.045);
+
+        gain.gain.setValueAtTime(0.04, ctx.currentTime + i * 0.045);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.045 + 0.12);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(ctx.currentTime + i * 0.045);
+        osc.stop(ctx.currentTime + i * 0.045 + 0.12);
+      });
     } catch {
       // Ignore
     }
@@ -267,6 +297,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
         toggleMute,
         playHover,
         playClick,
+        playCopy,
         playCardSelect,
         playModalOpen,
         playModalClose,
